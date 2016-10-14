@@ -31,7 +31,7 @@ j = @(phi) [cos(phi) -sin(phi) 0 0; ...
             0        0         1 0; ...
             0        0         0 1];
 
-Eta0 = [0; 0; 2; 45*pi/180; 0; 0];
+Eta0 = [0; 0; 2; 45*pi/180; 0; 0]';
 CurrentEnabled    = 0;
 HiPAPpeaksEnabled = 0;
 SensNoiseEnabled  = 0;
