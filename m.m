@@ -36,6 +36,10 @@ surge_thrust = [-220 480];
 sway_thrust  = [-220 220];
 heave_thrust = [-180 390];
 
+A = ones(5);
+B = zeros(5);
+D = zeros(5);
+K = -2*ones(5);
 % Force to thruster conversion matrix
 N = [0.5077 0.7646  0   -4.6062; ...
      0.5077 -0.7646 0   4.6062; ...
