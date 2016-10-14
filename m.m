@@ -40,6 +40,9 @@ A = eye(5);
 B = eye(5);
 D = eye(5);
 K = -2*eye(5);
+U0 = [0, 0, 5, 0]'; 
+Umax = [480, 220, 390, inf]; 
+Umin = [-220, -220, -180, -inf];
 % Force to thruster conversion matrix
 N = [0.5077 0.7646  0   -4.6062; ...
      0.5077 -0.7646 0   4.6062; ...
