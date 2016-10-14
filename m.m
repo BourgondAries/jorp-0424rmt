@@ -1,6 +1,9 @@
 % Main script
 clc; clear all; close all;
 
+addpath(genpath('./modelR2016bMAC/'));
+modelR2016bMAC;
+
 m_rb = [460  0     0   0     55.2  0; ...
         0    460   0   -55.2 0     0; ...
         0    0     460 0     0     0; ...
