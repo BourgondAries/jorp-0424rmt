@@ -1,6 +1,11 @@
 % Main script
 clc; clear all; close all;
 
+fprintf('Mexing the subsystem\n');
+mex ./modelR2016bMAC/Subsystem_sf.c ...
+	./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetNaN.c ...
+	./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetInf.c
+
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
