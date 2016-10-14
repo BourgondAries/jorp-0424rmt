@@ -26,11 +26,11 @@ j = @(phi) [cos(phi) -sin(phi) 0 0; ...
             0        0         1 0; ...
             0        0         0 1];
 
-Eta0 = [0; 0; 2; 45*pi/180];
-CurrentEnabled    = false;
-HiPAPpeaksEnabled = false;
-SensNoiseEnabled  = false;
-WavesEnabled      = false;
+Eta0 = [0; 0; 2; 45*pi/180; 0; 0];
+CurrentEnabled    = 0;
+HiPAPpeaksEnabled = 0;
+SensNoiseEnabled  = 0;
+WavesEnabled      = 0;
 
 surge_thrust = [-220 480];
 sway_thrust  = [-220 220];
