@@ -1,6 +1,11 @@
 % Main script
 clc; clear all; close all;
 
+fprintf('Mexing the subsystem\n');
+mex ./modelR2016bMAC/Subsystem_sf.c ...
+	./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetNaN.c ...
+	./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetInf.c
+
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
@@ -26,7 +31,7 @@ j = @(phi) [cos(phi) -sin(phi) 0 0; ...
             0        0         1 0; ...
             0        0         0 1];
 
-Eta0 = [0; 0; 2; 45*pi/180; 0; 0];
+Eta0 = [0; 0; 2; 45*pi/180; 0; 0]';
 CurrentEnabled    = 0;
 HiPAPpeaksEnabled = 0;
 SensNoiseEnabled  = 0;
