@@ -1,12 +1,5 @@
-function y = dowhatiwant( U0 )
-	Umax = [480, 220, 390, inf];
-	Umin = [-220, -220, -180, -inf];
-	N = [0.5077 0.7646  0   -4.6062; ...
-	     0.5077 -0.7646 0   4.6062; ...
-	     0      1.2656  0   -1.5997; ...
-	     0      0       0.5 0; ...
-	     0      0       0.5 0];
-
+function y = force_to_thrust( U0 )
+global Umin Umax N; 
 	f = N*U0;
 
 	for i = 1:3

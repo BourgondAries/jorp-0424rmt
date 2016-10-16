@@ -9,52 +9,34 @@ if exist('compiled', 'var') == 0
 	compiled = true;
 end
 
-global im j d_l imd h;
+%global iM J D iMD M H B R Q Umax Umin count x_hat_0 P K T;
 
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
-m_rb = [460  0     0   0; ...
-        0    460   0   0; ...
-        0    0     460 0; ...
-        0    0     0   105];
 
-m_a = [290 0   0   0; ...
-       0   300 0   0; ...
-       0   0   330 0; ...
-       0   0   0   55];
+%D = [234 0   0   0; 0   292 0   0; 0   0   263 0; 0   0   0   25];
 
-m_tot = m_a + m_rb;
-
-d_l = [234 0   0   0; ...
-       0   292 0   0; ...
-       0   0   263 0; ...
-       0   0   0   25];
-
-j = @(phi) [cos(phi) -sin(phi) 0 0; ...
-            sin(phi) cos(phi)  0 0; ...
-            0        0         1 0; ...
-            0        0         0 1];
-
+% J = @(phi) [cos(phi) -sin(phi) 0 0; ...
+%             sin(phi) cos(phi)  0 0; ...
+%             0        0         1 0; ...
+%             0        0         0 1];
+%T = 0.2; 
 Eta0 = [0; 0; 2; 45*pi/180; 0; 0]';
 CurrentEnabled    = 0;
 HiPAPpeaksEnabled = 0;
 SensNoiseEnabled  = 0;
 WavesEnabled      = 0;
 
-surge_thrust = [-220 480];
-sway_thrust  = [-220 220];
-heave_thrust = [-180 390];
-
-A = eye(5);
-B = inv(m_tot);
-D = eye(5);
-K = -2*eye(5);
 
 U0 = [0, 0, 5, 0]';
-
-im = inv(m_tot);
-imd = im*d_l;
-h = eye(8);
-b = [inv(m_tot) ;zeros(4)];
+deg2rad = pi/180; 
+  
+%P = eye(8); 
+%K = zeros(8, 5); 
+%x_hat_0= [0, 0, 2, 45*deg2rad, 0, 0, 0, 0]; 
+%iM = inv(M_tot);
+%iMD = iM*(-D);
+   
+%B = [zeros(4); inv(M_tot)];
 
