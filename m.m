@@ -45,9 +45,9 @@ sway_thrust  = [-220 220];
 heave_thrust = [-180 390];
 
 A = eye(5);
-B = eye(5);
+B = inv(m_tot);
 D = eye(5);
 K = -2*eye(5);
 
-U0 = [0, 0, 5, 0]'; 
+U0 = [0, 0, 5, 0]';
 
