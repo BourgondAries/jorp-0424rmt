@@ -9,6 +9,8 @@ if exist('compiled', 'var') == 0
 	compiled = true;
 end
 
+global im j d_l imd h;
+
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
@@ -50,4 +52,9 @@ D = eye(5);
 K = -2*eye(5);
 
 U0 = [0, 0, 5, 0]';
+
+im = inv(m_tot);
+imd = im*d_l;
+h = eye(8);
+b = [inv(m_tot) ;zeros(4)];
 
