@@ -3,11 +3,13 @@
 
 % 1st figure: ROV trajectory in the north-east plane. North on y-axis, east
 % on x-axis
+w = 1.5;
+
 figure;
 title('ROV trajectory in North-East plane');
-xlabel('$e$', 'Tex');
-ylabel('$n$', 'Tex');
-plot(y(2), y(1), 'LineWidth', 2);
+xlabel('$e$','Interpreter', 'Tex');
+ylabel('$n$','Interpreter', 'Tex');
+plot(y.data(:,2), y.data(:,1), 'LineWidth', w);
 grid on;
 legend('Trajectory');
 
@@ -15,80 +17,89 @@ legend('Trajectory');
 % psihat, using subplot and legends
 figure;
 subplot(2,2,1);
-title('Time evolution of $n$ and $\hat{n}$', 'Tex');
 xlabel('Time');
-ylabel('$m$', 'Tex');
-plot(y(1), 'b', 'LineWidth', 2);
+ylabel('$m$','Interpreter', 'latex');
+plot(y.data(:,1), 'b', 'LineWidth', w);
+title('Time evolution of $n$ and $\hat{n}$','Interpreter', 'latex');
 hold on;
-plot(x_hat(1), 'r', 'LineWidth', 2);
+plot(x_hat.data(:,1), 'r', 'LineWidth', w);
 hold off;
 grid on;
-legend('$n$', '$\hat{n}$', 'Tex');
+lh = legend('$n$', '$\hat{n}$');
+set(lh, 'Interpreter', 'latex')
 
 subplot(2,2,2);
-title('Time evolution of $e$ and $\hat{e}$', 'Tex');
 xlabel('Time');
-ylabel('$m$', 'Tex');
-plot(y(2), 'b', 'LineWidth', 2);
+ylabel('$m$','Interpreter', 'latex');
+plot(y.data(:,2), 'b', 'LineWidth', w);
+title('Time evolution of $e$ and $\hat{e}$','Interpreter', 'latex');
 hold on;
-plot(x_hat(2), 'r', 'LineWidth', 2);
+plot(x_hat.data(:,2), 'r', 'LineWidth', w);
 hold off;
 grid on;
-legend('$e$', '$\hat{e}$', 'Tex');
+lh = legend('$e$', '$\hat{e}$');
+set(lh, 'Interpreter', 'latex')
 
 subplot(2,2,3);
-title('Time evolution of $d$ and $\hat{d}$', 'Tex');
 xlabel('Time');
-ylabel('$m$', 'Tex');
-plot(y(3), 'b', 'LineWidth', 2);
+ylabel('$m$','Interpreter', 'latex');
+plot(y.data(:,3), 'b', 'LineWidth', w);
+title('Time evolution of $d$ and $\hat{d}$','Interpreter', 'latex');
 hold on;
-plot(x_hat(3), 'r', 'LineWidth', 2);
+plot(x_hat.data(:,3), 'r', 'LineWidth', w);
 hold off;
 grid on;
-legend('$d$', '$\hat{d}$', 'Tex');
+lh = legend('$d$', '$\hat{d}$');
+set(lh, 'Interpreter', 'latex')
 
 subplot(2,2,4);
-title('Time evolution of $\psi$ and $\hat{\psi}$', 'Tex');
 xlabel('Time');
-ylabel('$m$', 'Tex');
-plot(y(4), 'b', 'LineWidth', 2);
+ylabel('$m$','Interpreter', 'latex');
+plot(y.data(:,4), 'b', 'LineWidth', w);
+title('Time evolution of $\psi$ and $\hat{\psi}$','Interpreter', 'latex');
 hold on;
-plot(x_hat(4), 'r', 'LineWidth', 2);
+plot(x_hat.data(:,4), 'r', 'LineWidth', w);
 hold off;
 grid on;
-legend('$\psi$', '$\hat{\psi}$', 'Tex');
+lh = legend('$\psi$', '$\hat{\psi}$');
+set(lh, 'Interpreter', 'latex')
 
 % 3rd figure: Time evolution of the estimated velocities uhat, vhat, what
 % and rhat, using subplot and legends
 figure;
 subplot(2,2,1);
-title('Time evolution of $\hat{u}$', 'Tex');
+
 xlabel('Time');
-ylabel('$\frac{m}{s}$', 'Tex');
-plot(x_hat(5), 'b', 'LineWidth', 2);
+ylabel('$\frac{m}{s}$','Interpreter', 'latex');
+plot(x_hat.data(:,5), 'b', 'LineWidth', w);
+title('Time evolution of $\hat{u}$','Interpreter', 'latex');
 grid on;
-legend('$\hat{u}$', 'Tex');
+lh = legend('$\hat{u}$');
+set(lh, 'Interpreter', 'latex')
 
 subplot(2,2,2);
-title('Time evolution of $\hat{v}$', 'Tex');
 xlabel('Time');
-ylabel('$\frac{m}{s}$', 'Tex');
-plot(x_hat(6), 'b', 'LineWidth', 2);
+ylabel('$\frac{m}{s}$','Interpreter', 'latex');
+plot(x_hat.data(:,6), 'b', 'LineWidth', w);
+title('Time evolution of $\hat{v}$','Interpreter', 'latex');
 grid on;
-legend('$\hat{v}$', 'Tex');
+lh = legend('$\hat{v}$');
+set(lh, 'Interpreter', 'latex')
 
 subplot(2,2,3);
-title('Time evolution of $\hat{w}$', 'Tex');
 xlabel('Time');
-ylabel('$\frac{m}{s}$', 'Tex');
-plot(x_hat(7), 'b', 'LineWidth', 2);
+ylabel('$\frac{m}{s}$','Interpreter', 'latex');
+plot(x_hat.data(:,7), 'b', 'LineWidth', w);
+title('Time evolution of $\hat{w}$','Interpreter', 'latex');
 grid on;
-legend('$\hat{w}$', 'Tex');
+lh = legend('$\hat{w}$');
+set(lh, 'Interpreter', 'latex')
 
 subplot(2,2,4);
-title('Time evolution of $\hat{r}$', 'Tex');
 xlabel('Time');
-ylabel('$\frac{m}{s}$', 'Tex');
-plot(x_hat(8), 'b', 'LineWidth', 2);
+ylabel('$\frac{m}{s}$','Interpreter', 'latex');
+plot(x_hat.data(:,8), 'b', 'LineWidth', w);
+title('Time evolution of $\hat{r}$','interpreter', 'latex');
 grid on;
-legend('$\hat{r}$', 'Tex');
+lh = legend('$\hat{r}$');
+set(lh, 'Interpreter', 'latex')
