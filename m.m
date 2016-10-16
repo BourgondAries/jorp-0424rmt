@@ -1,10 +1,13 @@
 % Main script
-clc; clear all; close all;
+clc; clearvars -except compiled; close all;
 
-fprintf('Mexing the subsystem\n');
-mex ./modelR2016bMAC/Subsystem_sf.c ...
-	./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetNaN.c ...
-	./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetInf.c
+if exist('compiled', 'var') == 0
+	fprintf('Mexing the subsystem\n');
+	mex ./modelR2016bMAC/Subsystem_sf.c ...
+		./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetNaN.c ...
+		./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetInf.c
+	compiled = true;
+end
 
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
@@ -45,5 +48,6 @@ A = eye(5);
 B = eye(5);
 D = eye(5);
 K = -2*eye(5);
+
 U0 = [0, 0, 5, 0]'; 
 
