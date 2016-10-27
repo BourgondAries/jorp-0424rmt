@@ -12,12 +12,31 @@ end
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
-big_delta = 0;
+added_mass = [290 0   0   0;
+              0   300 0   0;
+              0   0   330 0;
+              0   0   0   55];
+
+rigid_mass = [460 0   0   0;
+              0   460 0   0;
+              0   0   460 0;
+              0   0   0   105];
+
+big_c     = [1 0 0 0 0 0 0 0 0 0 0 0;
+             0 1 0 0 0 0 0 0 0 0 0 0;
+             0 0 1 0 0 0 0 0 0 0 0 0;
+             0 0 0 1 0 0 0 0 0 0 0 0;
+             0 0 0 0 0 0 0 1 0 0 0 0];
+
+big_d     = [234 0   0   0;
+             0   292 0   0;
+             0   0   263 0;
+             0   0   0   25];
+
+big_delta = (added_mass + rigid_mass)^-1;
 big_gamma = 0;
 big_phi   = 0;
-big_c     = 0;
 big_k     = 0;
-D = [234 0   0   0; 0   292 0   0; 0   0   263 0; 0   0   0   25];
 
 % J = @(phi) [cos(phi) -sin(phi) 0 0; ...
 %             sin(phi) cos(phi)  0 0; ...
