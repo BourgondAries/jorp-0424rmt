@@ -44,6 +44,8 @@ big_delta = [zeros(4); Dt*(added_mass + rigid_mass)^-1; zeros(4)];
 big_omega = 2*wave_dampings.*wave_frequencies;
 big_gamma = [zeros(4); wave_frequencies.^2; zeros(4)];
 
+waves = [0, 0, 0, 0];
+
 big_phi   = @(x) [1, 0, 0, -(x(6)*cos(x(4)) + x(5)*sin(x(4)))*Dt, Dt*cos(x(4)), -Dt*sin(x(4)), 0, 0, 0, 0, 0, 0;
 						 0, 1, 0, (x(5)*cos(x(4)) - x(6)*sin(x(4)))*Dt, Dt*sin(x(4)), Dt*cos(x(4)), 0, 0, 0, 0, 0, 0;
 						 0, 0, 1, 0, 0, 0, Dt, 0, 0, 0, 0, 0;
