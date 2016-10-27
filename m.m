@@ -74,11 +74,6 @@ big_k     = [1 0 0 0 0
              0 0 0 0 0
              0 0 0 0 0];
 
-% J = @(phi) [cos(phi) -sin(phi) 0 0; ...
-%             sin(phi) cos(phi)  0 0; ...
-%             0        0         1 0; ...
-%             0        0         0 1];
-
 % Constant thrust given by the vessel
 thrust = [0, 0, 5, 0]';
 
@@ -89,4 +84,4 @@ Eta0 = [0; 0; 2; 45*pi/180; 0; 0]';
 CurrentEnabled    = 0;
 HiPAPpeaksEnabled = 0;
 SensNoiseEnabled  = 0;
-WavesEnabled      = 1;
+WavesEnabled      = 0;
