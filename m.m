@@ -12,76 +12,53 @@ end
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
-added_mass = [290 0   0   0;
-              0   300 0   0;
-              0   0   330 0;
-              0   0   0   55];
 
-rigid_mass = [460 0   0   0;
-              0   460 0   0;
-              0   0   460 0;
-              0   0   0   105];
+% Vessel model
+Ma = [290 0   0   0;
+      0   300 0   0;
+      0   0   330 0;
+      0   0   0   55];
 
-big_c     = [1 0 0 0 0 0 0 0 0 0 0 0;
-             0 1 0 0 0 0 0 0 0 0 0 0;
-             0 0 1 0 0 0 0 0 0 0 0 0;
-             0 0 0 1 0 0 0 0 0 0 0 0;
-             0 0 0 0 0 0 0 1 0 0 0 0];
+Mrb = [460 0   0   0;
+       0   460 0   0;
+       0   0   460 0;
+       0   0   0   105];
+   
+M = Ma + Mrb;
 
-big_d     = [234 0   0   0;
-             0   292 0   0;
-             0   0   263 0;
-             0   0   0   25];
+D    = [234 0   0   0;
+        0   292 0   0;
+        0   0   263 0;
+        0   0   0   25];
 
-wave_frequencies = diag(2*pi./[5, 10, 15, 20]);
-wave_dampings    = diag([0.05, 0.1, 0.15, 0.2]);
+g = [0,0,-5,0];
 
-bias_matrix = diag([0.1, 0.1, 0.1, 0.1]);
+% Wave model
+Omega = diag([1,1,1,1]); %TUNING
+Lambda = diag([0.1,0.1,0.1,0.1]); %TUNING
+Aw = [zeros(4), eye(4); -Omega.^2, -2*Lambda.*Omega];
+Kw = diag([1,1,1,1]);
+Ew = [zeros(4,4); Kw];
+Cw = [zeros(4), eye(4)];
 
-Dt = 0.2;
-mass = added_mass + rigid_mass;
-big_delta = [zeros(4); Dt*(added_mass + rigid_mass)^-1; zeros(4)];
-big_omega = 2*wave_dampings.*wave_frequencies;
-big_gamma = [zeros(4); wave_frequencies.^2; zeros(4)];
+% Bias model
+Tb = diag([0.1, 0.1, 0.1, 0.1]);
+Eb = diag([1,1,1,1]);
 
-waves = [0, 0, 0, 0];
+% EKF
+T = 0.2;
+B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(mass)];
+E = [Ew; zeros(4); Eb; zeros(4)];
+H = [Cw, eye(4), zeros(4), zeros(4)];
+Q = eye(20);
+R = eye(4);
 
-big_phi   = @(x) [1, 0, 0, -(x(6)*cos(x(4)) + x(5)*sin(x(4)))*Dt, Dt*cos(x(4)), -Dt*sin(x(4)), 0, 0, 0, 0, 0, 0;
-             0, 1, 0, (x(5)*cos(x(4)) - x(6)*sin(x(4)))*Dt, Dt*sin(x(4)), Dt*cos(x(4)), 0, 0, 0, 0, 0, 0;
-             0, 0, 1, 0, 0, 0, Dt, 0, 0, 0, 0, 0;
-             0, 0, 0, 1, 0, 0, 0, Dt, 0, 0, 0, 0;
-             0, 0, 0, (x(10)*cos(x(4)) - x(9)*sin(x(4)))*Dt/mass(1,1), -big_d(1,1)*Dt/mass(1,1) + 1, 0, 0, 0, Dt*cos(x(4))/mass(1,1), Dt*sin(x(4))/mass(1,1), 0, 0;
-             0, 0, 0, -(x(9)*cos(x(4)) + x(10)*sin(x(4)))*Dt/mass(2,2), 0, -big_d(2,2)*Dt/mass(2,2) + 1, 0, 0, -Dt*sin(x(4))/mass(2,2), Dt*cos(x(4))/mass(2,2), 0, 0;
-             0, 0, 0, 0, 0, 0, -big_d(3,3)*Dt/mass(3,3) + 1, 0, 0, 0, Dt/mass(3,3), 0;
-             0, 0, 0, 0, 0, 0, 0, -big_d(4,4)*Dt/mass(4,4) + 1, 0, 0, 0, Dt/mass(4,4);
-             0, 0, 0, 0, 0, 0, 0, 0, -Dt*bias_matrix(1,1) + 1, 0, 0, 0;
-             0, 0, 0, 0, 0, 0, 0, 0, 0, -Dt*bias_matrix(2,2) + 1, 0, 0;
-             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -Dt*bias_matrix(3,3) + 1, 0;
-             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -Dt*bias_matrix(4,4) + 1]
-
-big_k     = [1 0 0 0 0
-             0 1 0 0 0
-             0 0 1 0 0
-             0 0 0 1 0
-
-             0 0 0 0 0
-             0 0 0 0 0
-             0 0 0 0 0
-             0 0 0 0 1
-
-             0 0 0 0 0
-             0 0 0 0 0
-             0 0 0 0 0
-             0 0 0 0 0];
-
-big_q = eye(12);
-big_e = eye(12);
-big_r = eye(5);
-
-p_bar_init = eye(12);
+% Initial values:
+x0 = [zeros(1,8),0,0,2,pi/4,zeros(1,8)];
+P0 = eye(20);
 
 % Constant thrust given by the vessel
-thrust = [0, 0, 5, 0]';
+u = [0, 0, 5, 0]';
 
 % Initial condition of the system
 Eta0 = [0; 0; 2; 45*pi/180; 0; 0]';
