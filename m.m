@@ -51,17 +51,17 @@ B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
 E = blkdiag(Ew, zeros(4), Eb, zeros(4));
 H = [Cw, eye(4), zeros(4), zeros(4)];
 Q = zeros(20); % TUNING
-R = eye(4)-8.5; % TUNING
+R = eye(4)-0.5; % TUNING
+
+% Initial condition of the system
+Eta0 = [0; 0; 300; 45*pi/180; 0; 0]';
 
 % Initial values:
-x0 = [zeros(1,8),0,0,2,pi/4,zeros(1,8)];
+x0 = [zeros(1,8),Eta0(1:4),zeros(1,8)];
 P0 = eye(20);
 
 % Constant thrust given by the vessel
-u = [0, 0, 5, 0]';
-
-% Initial condition of the system
-Eta0 = [0; 0; 2; 45*pi/180; 0; 0]';
+u = [300, 0, 0, 0]';
 
 % Various states of simulation
 CurrentEnabled    = 0;
