@@ -50,8 +50,8 @@ T = 0.2;
 B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
 E = blkdiag(Ew, zeros(4), Eb, zeros(4));
 H = [Cw, eye(4), zeros(4), zeros(4)];
-Q = zeros(20); % TUNING 
-R = eye(4)-0.5; % TUNING
+Q = zeros(20); % TUNING
+R = eye(4)-8.5; % TUNING
 
 % Initial values:
 x0 = [zeros(1,8),0,0,2,pi/4,zeros(1,8)];
