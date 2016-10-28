@@ -34,15 +34,15 @@ D    = [234 0   0   0;
 g = [0,0,5,0];
 
 % Wave model
-Omega = diag([1.1,1.1,1.1,1.1]); %TUNING
-Lambda = diag([0.1,0.1,0.1,0.1]); %TUNING
-Aw = [zeros(4), eye(4); -Omega.^2, -2*Lambda.*Omega];
+Omega = diag([1.0,1.1,0.5,0.1]); %TUNING
+Lambda = diag([1.0,1.1,1.0,0.2]); %TUNING
+Aw = [zeros(4), eye(4); -Omega^2, -2*Lambda*Omega];
 Kw = diag([1,1,1,1]); % TUNING
 Ew = blkdiag(zeros(4,4), Kw);
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = diag([1,1,1,8]); % TUNING (under 0.1 gir ustabilitet. 8 bra for heading)
+Tb = diag([1,1,1,1]); % TUNING (under 0.1 gir ustabilitet. 8 bra for heading)
 Eb = diag([1,1,1,1]); % TUNING (får ikke denne til å gi særlig effekt)
 
 % EKF
@@ -61,7 +61,7 @@ x0 = [zeros(1,8),Eta0(1:4),zeros(1,8)];
 P0 = eye(20);
 
 % Constant thrust given by the vessel
-u = [300, 0, 0, 0]';
+u = [0, 0, 5, 0]';
 
 % Various states of simulation
 CurrentEnabled    = 0;
