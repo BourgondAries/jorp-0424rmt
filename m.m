@@ -76,7 +76,9 @@ big_k     = [1 0 0 0 0
 
 big_q = eye(12);
 big_e = eye(12);
-big_r = eye(12);
+big_r = eye(5);
+
+p_bar_init = eye(12);
 
 % Constant thrust given by the vessel
 thrust = [0, 0, 5, 0]';
