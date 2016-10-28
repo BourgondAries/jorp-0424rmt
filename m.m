@@ -23,7 +23,7 @@ Mrb = [460 0   0   0;
        0   460 0   0;
        0   0   460 0;
        0   0   0   105];
-   
+
 M = Ma + Mrb;
 
 D    = [234 0   0   0;
@@ -38,17 +38,17 @@ Omega = diag([1,1,1,1]); %TUNING
 Lambda = diag([0.1,0.1,0.1,0.1]); %TUNING
 Aw = [zeros(4), eye(4); -Omega.^2, -2*Lambda.*Omega];
 Kw = diag([1,1,1,1]);
-Ew = [zeros(4,4); Kw];
+Ew = blkdiag(zeros(4,4), Kw);
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = diag([0.1, 0.1, 0.1, 0.1]);    
+Tb = diag([0.1, 0.1, 0.1, 0.1]);
 Eb = diag([1,1,1,1]);
 
 % EKF
 T = 0.2;
 B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
-E = [Ew; zeros(4); Eb; zeros(4)];
+E = blkdiag(Ew, zeros(4), Eb, zeros(4));
 H = [Cw, eye(4), zeros(4), zeros(4)];
 Q = eye(20);
 R = eye(4);
