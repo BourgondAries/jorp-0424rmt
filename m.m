@@ -42,12 +42,12 @@ Ew = [zeros(4,4); Kw];
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = diag([0.1, 0.1, 0.1, 0.1]);
+Tb = diag([0.1, 0.1, 0.1, 0.1]);    
 Eb = diag([1,1,1,1]);
 
 % EKF
 T = 0.2;
-B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(mass)];
+B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
 E = [Ew; zeros(4); Eb; zeros(4)];
 H = [Cw, eye(4), zeros(4), zeros(4)];
 Q = eye(20);
