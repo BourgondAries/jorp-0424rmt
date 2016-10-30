@@ -45,14 +45,14 @@ Cw = [zeros(4), eye(4)];
 
 % Bias model
 Tb = diag([15,15,100,100]); % TUNING (under 0.1 gir ustabilitet.)
-Eb = diag([100,100,50,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
+Eb = diag([10,10,50,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
 
 % EKF
 T = 0.2;
 B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
 E = blkdiag(Ew, zeros(4), Eb, zeros(4));
 H = [Cw, eye(4), zeros(4), zeros(4)];
-Q = blkdiag(zeros(4), 100*eye(4), 0.1*eye(4), diag([0.1,0.1,0.1,0.1]), 0.1*eye(4)); % TUNING
+Q = blkdiag(zeros(4), diag([10,5,100,100]), 0.1*eye(4), diag([0.1,0.1,0.1,0.1]), 0.1*eye(4)); % TUNING
 
 R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 
@@ -75,7 +75,7 @@ end
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
-P0 = eye(20);
+P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
 
 % Various states of simulation
 CurrentEnabled    = 0;
