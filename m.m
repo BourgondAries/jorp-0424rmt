@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 2;
+model_case = 1;
 
 % Vessel model
 Ma = [290 0   0   0;
@@ -45,7 +45,7 @@ Cw = [zeros(4), eye(4)];
 
 % Bias model
 Tb = diag([15,15,100,100]); % TUNING (under 0.1 gir ustabilitet.)
-Eb = diag([200,200,50,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
+Eb = diag([100,100,50,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
 
 % EKF
 T = 0.2;
