@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 3;
+model_case = 1;
 
 % Vessel model
 Ma = [290 0   0   0;
@@ -79,6 +79,6 @@ P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
 
 % Various states of simulation
 CurrentEnabled    = 1;
-HiPAPpeaksEnabled = 0;
+HiPAPpeaksEnabled = 1;
 SensNoiseEnabled  = 1;
 WavesEnabled      = 1;
