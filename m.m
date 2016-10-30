@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 3;
+model_case = 4;
 
 % Vessel model
 Ma = [290 0   0   0;
