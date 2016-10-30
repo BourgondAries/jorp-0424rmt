@@ -15,6 +15,7 @@ modelR2016bMAC;
 % Example case, decides initial condition and thrust
 model_case = 1;
 
+
 % Vessel model
 Ma = [290 0   0   0;
       0   300 0   0;
