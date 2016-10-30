@@ -20,12 +20,13 @@ axis([-50 50 -50 50])
 % psihat, using subplot and legends
 figure;
 subplot(2,2,1);
-plot(t,y.data(:,1), 'LineWidth', w);
 hold on;
-plot(t,x_hat.data(:,9), 'LineWidth', w);
+plot(t,unfiltered.data(:,1), 'LineWidth', w);
+plot(t,x_hat.data(:,9), '--');
+plot(t,y.data(:,1), 'LineWidth', w);
 hold off;
 grid on;
-lh = legend('$n$', '$\hat{n}$');
+lh = legend('$n$', '$\hat{n}$', '$n$ (filtered)');
 set(lh, 'Interpreter', 'latex')
 title('Time evolution of $n$ and $\hat{n}$','Interpreter', 'latex');
 xlabel('Time');
@@ -33,12 +34,13 @@ ylabel('$m$','rot', 0,'Interpreter', 'latex');
 xlim([0 180]);
 
 subplot(2,2,2);
-plot(t,y.data(:,2), 'LineWidth', w);
 hold on;
-plot(t,x_hat.data(:,10), 'LineWidth', w);
+plot(t,unfiltered.data(:,2), 'LineWidth', w);
+plot(t,x_hat.data(:,10), '--');
+plot(t,y.data(:,2), 'LineWidth', w);
 hold off;
 grid on;
-lh = legend('$e$', '$\hat{e}$');
+lh = legend('$e$', '$\hat{e}$', '$e$ (filtered)');
 set(lh, 'Interpreter', 'latex')
 title('Time evolution of $e$ and $\hat{e}$','Interpreter', 'latex');
 xlabel('Time');
@@ -172,7 +174,7 @@ xlim([0 180]);
 subplot(2,2,3);
 plot(t,x_hat.data(:,15), 'LineWidth', w);
 grid on;
-title('Time evolution of bias in hiv','Interpreter', 'latex');
+title('Time evolution of bias in heave','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
 ylabel('Bias ','Interpreter', 'latex');
 xlim([0 180]);
@@ -184,15 +186,3 @@ title('Time evolution of bias in yaw','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
 ylabel('Bias ','Interpreter', 'latex');
 xlim([0 180]);
-
-figure;
-plot(t,y.data(:,1), '+');
-grid on;
-plot(t,unfiltered.data(:,1), 'o');
-title('Unfiltered and filtered HiPAP jumps','Interpreter', 'latex');
-xlabel('Time', 'Interpreter','latex');
-ylabel('Position','Interpreter', 'latex');
-legend('Filtered','Unfiltered');
-xlim([0 180]);
-
-
