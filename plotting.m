@@ -3,7 +3,7 @@
 
 w = 1;
 t = x_hat.time;
-rad2deg = 180/pi; 
+rad2deg = 180/pi;
 
 % 1st figure: ROV trajectory in the north-east plane. North on y-axis, east
 % on x-axis
@@ -152,7 +152,7 @@ xlim([0 180]);
 
 % 6th figure: Time evolution of the estimated biases b_1, b_2, b_3, and b_6.
 % Using subplot and legends
-figure; 
+figure;
 subplot(2,2,1);
 plot(t,x_hat.data(:,13), 'LineWidth', w);
 grid on;
@@ -184,4 +184,15 @@ title('Time evolution of bias in yaw','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
 ylabel('Bias ','Interpreter', 'latex');
 xlim([0 180]);
+
+figure;
+plot(t,y.data(:,1), 'LineWidth', w);
+grid on;
+plot(t,unfiltered.data(:,1), 'o');
+title('Unfiltered and filtered HiPAP jumps','Interpreter', 'latex');
+xlabel('Time', 'Interpreter','latex');
+ylabel('Position','Interpreter', 'latex');
+legend('Filtered','Unfiltered');
+xlim([0 180]);
+
 
