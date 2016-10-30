@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 1;
+model_case = 2;
 
 % Vessel model
 Ma = [290 0   0   0;
@@ -52,7 +52,7 @@ T = 0.2;
 B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
 E = blkdiag(Ew, zeros(4), Eb, zeros(4));
 H = [Cw, eye(4), zeros(4), zeros(4)];
-Q = blkdiag(zeros(4), 100*eye(4), zeros(4), diag([1.5,1.5,0.5,100]), zeros(4)); % TUNING
+Q = blkdiag(zeros(4), 100*eye(4), 0.1*eye(4), diag([0.1,0.1,0.1,0.1]), 0.1*eye(4)); % TUNING
 
 R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 
