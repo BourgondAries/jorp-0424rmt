@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 4
+model_case = 1;
 
 % Vessel model
 Ma = [290 0   0   0;
@@ -36,26 +36,23 @@ D    = [234 0   0   0;
 g = [0,0,5,0];
 
 % Wave model
-% Good for first case
-% Omega = diag([0.5,0.5,0.5,5]); % TUNING
-% Good for second case, OK for third, OK for fourth
-Omega = diag([2,2,2,5]); % TUNING
+Omega = diag([0.7,0.7,0.7,5]); % TUNING
 Lambda = diag([0.06,0.06,0.02,0.1]); % TUNING
 Aw = [zeros(4), eye(4); -Omega^2, -2*Lambda*Omega];
-Kw = diag([1,1,1,1]); % TUNING
+Kw = diag([1,1,1,1/5]); % TUNING
 Ew = blkdiag(zeros(4,4), Kw);
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = diag([15,8,100,100]); % TUNING (under 0.1 gir ustabilitet.)
-Eb = diag([1,1,1,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
+Tb = diag([15,15,100,100]); % TUNING (under 0.1 gir ustabilitet.)
+Eb = diag([200,200,50,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
 
 % EKF
 T = 0.2;
 B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
 E = blkdiag(Ew, zeros(4), Eb, zeros(4));
 H = [Cw, eye(4), zeros(4), zeros(4)];
-Q = eye(20); % TUNING
+Q = blkdiag(zeros(4), 100*eye(4), zeros(4), diag([1.5,1.5,0.5,100]), zeros(4)); % TUNING
 
 R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 
@@ -73,7 +70,7 @@ switch model_case
 		u = [100, 0, 0, 0.2]';
 	otherwise
 		Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
-		u = [0, 0, 330, 0]';
+		u = [0, 0, 320, 0]';
 end
 
 % Initial values:
