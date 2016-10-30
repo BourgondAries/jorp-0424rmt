@@ -12,6 +12,8 @@ end
 addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
+% Example case, decides initial condition and thrust
+model_case = 4
 
 % Vessel model
 Ma = [290 0   0   0;
@@ -34,7 +36,10 @@ D    = [234 0   0   0;
 g = [0,0,5,0];
 
 % Wave model
-Omega = diag([0.5,0.5,0.5,5]); % TUNING
+% Good for first case
+% Omega = diag([0.5,0.5,0.5,5]); % TUNING
+% Good for second case, OK for third, OK for fourth
+Omega = diag([2,2,2,5]); % TUNING
 Lambda = diag([0.06,0.06,0.02,0.1]); % TUNING
 Aw = [zeros(4), eye(4); -Omega^2, -2*Lambda*Omega];
 Kw = diag([1,1,1,1]); % TUNING
@@ -42,7 +47,7 @@ Ew = blkdiag(zeros(4,4), Kw);
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = diag([15,8,100,100]); % TUNING (under 0.1 gir ustabilitet. 8 bra for heading)
+Tb = diag([15,8,100,100]); % TUNING (under 0.1 gir ustabilitet.)
 Eb = diag([1,1,1,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
 
 % EKF
@@ -54,15 +59,26 @@ Q = eye(20); % TUNING
 
 R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 
-% Initial condition of the system
-Eta0 = [0; 0; 0; 0; 0; 45*pi/180]';
+switch model_case
+	case 1
+		% Initial condition of the system
+		Eta0 = [0; 0; 2; 0; 0; 45*pi/180]';
+		% Constant thrust given by the vessel
+		u = [0, 0, 5, 0]';
+	case 2
+		Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
+		u = [300, 0, 0, 0]';
+	case 3
+		Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
+		u = [100, 0, 0, 0.2]';
+	otherwise
+		Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
+		u = [0, 0, 330, 0]';
+end
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
 P0 = eye(20);
-
-% Constant thrust given by the vessel
-u = [0, 0, 5, 0]';
 
 % Various states of simulation
 CurrentEnabled    = 0;
