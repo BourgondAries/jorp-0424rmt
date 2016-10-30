@@ -186,7 +186,7 @@ ylabel('Bias ','Interpreter', 'latex');
 xlim([0 180]);
 
 figure;
-plot(t,y.data(:,1), 'LineWidth', w);
+plot(t,y.data(:,1), '+');
 grid on;
 plot(t,unfiltered.data(:,1), 'o');
 title('Unfiltered and filtered HiPAP jumps','Interpreter', 'latex');
