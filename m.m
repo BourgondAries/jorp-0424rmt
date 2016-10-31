@@ -71,7 +71,7 @@ switch model_case
 		u = [100, 0, 0, 0.2]';
 	otherwise
 		Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
-		u = [0, 0, 320, 0]';
+		u = [0, 0, 320, 0.012]';
 end
 
 % Initial values:
