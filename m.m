@@ -77,6 +77,7 @@ end
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
 P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
+dp = [100, 0, 0, 0];  % Desired position
 
 % Various states of simulation
 CurrentEnabled    = 1;
