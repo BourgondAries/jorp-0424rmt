@@ -13,7 +13,13 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 4;
+model_case = 5;
+
+% Various states of simulation
+CurrentEnabled    = 1;
+HiPAPpeaksEnabled = 1;
+SensNoiseEnabled  = 1;
+WavesEnabled      = 1;
 
 
 % Vessel model
@@ -45,8 +51,8 @@ Ew = blkdiag(zeros(4,4), Kw);
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = diag([15,5,85,100]); % TUNING (under 0.1 gir ustabilitet.)
-Eb = diag([20,30,20,1]); % TUNING (f�r ikke denne til � gi s�rlig effekt)
+Tb = diag([15,5,85,100]); % TUNING
+Eb = diag([20,30,20,1]); % TUNING
 
 % EKF
 T = 0.2;
@@ -54,8 +60,16 @@ B = [zeros(8,4); zeros(4,4); zeros(4,4); inv(M)];
 E = blkdiag(Ew, zeros(4), Eb, zeros(4));
 H = [Cw, eye(4), zeros(4), zeros(4)];
 Q = blkdiag(zeros(4), diag([10,10,10,10]), 0.1*eye(4), diag([0.1,0.1,0.1,0.1]), 0.1*eye(4)); % TUNING
-
 R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
+
+% Controller
+% Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
+% degrees in yaw during 240 seconds
+Gd = diag([200 200 300 450]);
+Gp = diag([500 100 150 30]);
+Gi = diag([100 30 30 80]);
+Gpd = [Gp Gd];
+
 
 switch model_case
 	case 1
@@ -69,17 +83,19 @@ switch model_case
 	case 3
 		Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
 		u = [100, 0, 0, 0.2]';
-	otherwise
+    case 4
 		Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
-		u = [0, 0, 320, 0]';
+		u = [0, 0, 320, 0.012]';
+    case 5
+        Eta0 = [0; 0; 200; 0; 0; 0;]';
 end
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
 P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
-
-% Various states of simulation
-CurrentEnabled    = 1;
-HiPAPpeaksEnabled = 1;
-SensNoiseEnabled  = 1;
-WavesEnabled      = 1;
+e0 = [0 0 0 0]';
+u0 = [0, 0, 0, 0]';
+Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
+         -sin(Eta0(6)) cos(Eta0(6)) 0 0;
+            0             0         1 0;
+            0             0         0 1];
