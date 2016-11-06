@@ -96,7 +96,7 @@ switch model_case
         pos.y = [Eta0(2) Eta0(2)] ;
         pos.z = [Eta0(3) Eta0(3)];
         pos.psi =[Eta0(6) Eta0(6)];
-        
+        time = [0 240];
         
     case 6
         Eta0 = [0; 0; 200; 0; 0; 0;]';
@@ -105,7 +105,7 @@ switch model_case
         pos.z = [Eta0(3) 200];
         pos.psi =[Eta0(6) 320*deg2rad ];
         
-        
+        time = [0 20];
     case 7
         
         Eta0 = [0; 0; 200; 0; 0; 0;]';
@@ -113,7 +113,7 @@ switch model_case
         pos.y = [Eta0(2) 60] ;
         pos.z = [Eta0(3) 150];
         pos.psi =[Eta0(6) 320*deg2rad];
-        
+        time = [0 240];
         
     case 8
         
@@ -122,7 +122,7 @@ switch model_case
         pos.y = [Eta0(2) Eta0(2)] ;
         pos.z = [Eta0(3) 5];
         pos.psi =[Eta0(6) Eta0(6)];
-        
+        time = [0 240];
 end
 
 % Initial values:
@@ -136,8 +136,8 @@ Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
             0             0         0 1];
 
 % Trajectory generation
-time = [0 240];
-step = 5;
+
+step = 1;
 path = zeros(4, max(time)/step + 1); % Matrix containing the path vectors
 
 t = 0: step: max(time); % Adding time to the path description
