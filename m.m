@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 7;
+model_case = 6;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -131,18 +131,18 @@ P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
 e0 = [0 0 0 0]';
 u0 = [0, 0, 0, 0]';
 Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
-    -sin(Eta0(6)) cos(Eta0(6)) 0 0;
-    0             0         1 0;
-    0             0         0 1];
+         -sin(Eta0(6)) cos(Eta0(6)) 0 0;
+            0             0         1 0;
+            0             0         0 1];
 
-% Creating the path vectors
-time = [0  240];
+% Trajectory generation
+time = [0 240];
 step = 5;
-path = zeros(4, max(time)/step + 1); %a matrix descibing the path. First row is the time vector
+path = zeros(4, max(time)/step + 1); % Matrix containing the path vectors
 
-t = 0: step: max(time); %adding time to the path description
-path(1,:) = spline(time, pos.x, t); %path in x direction
-path(2,:) = spline(time, pos.y, t);%path in y direction
-path(3,:) = spline(time, pos.z, t);%path in z direction
-path(4,:) = spline(time, pos.psi, t);%path for the hading
+t = 0: step: max(time); % Adding time to the path description
+path(1,:) = spline(time, pos.x, t); % Path in x direction
+path(2,:) = spline(time, pos.y, t); % Path in y direction
+path(3,:) = spline(time, pos.z, t); % Path in z direction
+path(4,:) = spline(time, pos.psi, t); % Path for the heading
 
