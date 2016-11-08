@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 9;
+model_case = 6;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -78,8 +78,8 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
 Gd = diag([200 200 300 450]);
-Gp = diag([500 100 150 30]);
-Gi = diag([100 30 30 80]);
+Gp = diag([500 100 150 10]);
+Gi = diag([100 30 30 0]);
 Gpd = [Gp Gd];
 
 
@@ -114,7 +114,7 @@ switch model_case
         pos.z = [Eta0(3) 200];
         pos.psi =[Eta0(6) 320*deg2rad ];
 
-        time = [0 20];
+        time = [0 240];
     case 7
 
         Eta0 = [0; 0; 200; 0; 0; 0;]';
@@ -132,16 +132,16 @@ switch model_case
         pos.z = [Eta0(3) 5];
         pos.psi =[Eta0(6) Eta0(6)];
         time = [0 240];
-        
+
     case 9 %extra 3.3
-        
+
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         pos.x = [Eta0(1) 30 100];
         pos.y = [Eta0(2) 5 60] ;
         pos.z = [Eta0(3) 145 150];
         pos.psi =[Eta0(6) 160*deg2rad 320*deg2rad];
         time = [0 120 240];
-        
+
 end
 
 
