@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 5;
+model_case = 9;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -52,10 +52,10 @@ N = [0.5077, 0.7646,  0,   -4.6062;
     0,      0,       0.5, 0;
     0,      0,       0.5, 0];
 N2 = [0.5077    0.4994         0   -3.0084;
-      0.5077   -0.4994         0    3.0084;
-      0.0000    0.8266         0    1.0448;
-      0         0              0.5000         0;
-      0         0              0.5000         0];
+    0.5077   -0.4994         0    3.0084;
+    0.0000    0.8266         0    1.0448;
+    0         0              0.5000         0;
+    0         0              0.5000         0];
 
 % Wave model
 Omega = diag([0.7,0.7,0.7,3]); % TUNING
@@ -135,7 +135,18 @@ switch model_case
         pos.z = [Eta0(3) 5];
         pos.psi =[Eta0(6) Eta0(6)];
         time = [0 240];
+        
+    case 9 %extra 3.3
+        
+        Eta0 = [0; 0; 200; 0; 0; 0;]';
+        pos.x = [Eta0(1) 30 100];
+        pos.y = [Eta0(2) 5 60] ;
+        pos.z = [Eta0(3) 145 150];
+        pos.psi =[Eta0(6) 160*deg2rad 320*deg2rad];
+        time = [0 120 240];
+        
 end
+
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
@@ -157,4 +168,7 @@ path(1,:) = spline(time, pos.x, t); % Path in x direction
 path(2,:) = spline(time, pos.y, t); % Path in y direction
 path(3,:) = spline(time, pos.z, t); % Path in z direction
 path(4,:) = spline(time, pos.psi, t); % Path for the heading
+
+
+
 
