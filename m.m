@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 6;
+model_case = 5;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -44,6 +44,18 @@ D    = [234 0   0   0;
     0   0   0   25];
 
 g = [0,0,5,0];
+
+%Thrust allocation matrix
+N = [0.5077, 0.7646,  0,   -4.6062;
+    0.5066, -0.7646, 0,   4.6062;
+    0,      1.2656,  0,   -1.5997;
+    0,      0,       0.5, 0;
+    0,      0,       0.5, 0];
+N2 = [0.5077    0.4994         0   -3.0084;
+      0.5077   -0.4994         0    3.0084;
+      0.0000    0.8266         0    1.0448;
+      0         0              0.5000         0;
+      0         0              0.5000         0];
 
 % Wave model
 Omega = diag([0.7,0.7,0.7,3]); % TUNING
@@ -131,9 +143,9 @@ P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
 e0 = [0 0 0 0]';
 u0 = [0, 0, 0, 0]';
 Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
-         -sin(Eta0(6)) cos(Eta0(6)) 0 0;
-            0             0         1 0;
-            0             0         0 1];
+    -sin(Eta0(6)) cos(Eta0(6)) 0 0;
+    0             0         1 0;
+    0             0         0 1];
 
 % Trajectory generation
 
