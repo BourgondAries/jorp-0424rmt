@@ -23,39 +23,36 @@ WavesEnabled      = 1;
 
 % Defining constants for framsforming between radians and degrees
 deg2rad = pi/180;
-rad2deg =180/pi;
+rad2deg = 180/pi;
 
 % Vessel model
 Ma = [290 0   0   0;
-    0   300 0   0;
-    0   0   330 0;
-    0   0   0   55];
+      0   300 0   0;
+      0   0   330 0;
+      0   0   0   55];
 
 Mrb = [460 0   0   0;
-    0   460 0   0;
-    0   0   460 0;
-    0   0   0   105];
+       0   460 0   0;
+       0   0   460 0;
+       0   0   0   105];
 
 M = Ma + Mrb;
 
-D    = [234 0   0   0;
-    0   292 0   0;
-    0   0   263 0;
-    0   0   0   25];
+D = [234 0   0   0;
+     0   292 0   0;
+     0   0   263 0;
+     0   0   0   25];
 
 g = [0,0,5,0];
 
 %Thrust allocation matrix
-N = [0.5077, 0.7646,  0,   -4.6062;
-    0.5066, -0.7646, 0,   4.6062;
-    0,      1.2656,  0,   -1.5997;
-    0,      0,       0.5, 0;
-    0,      0,       0.5, 0];
-N2 = [0.5077    0.4994         0   -3.0084;
-    0.5077   -0.4994         0    3.0084;
-    0.0000    0.8266         0    1.0448;
-    0         0              0.5000         0;
-    0         0              0.5000         0];
+N = [0.5077    0.4994         0   -3.0084;
+     0.5077   -0.4994         0    3.0084;
+     0         0.8266         0    1.0448;
+     0         0              0.5000         0;
+     0         0              0.5000         0];
+tau_max = [480 220 390 inf]';
+tau_min = [-220 -220 -180, -inf]';
 
 % Wave model
 Omega = diag([0.7,0.7,0.7,3]); % TUNING
@@ -101,7 +98,7 @@ switch model_case
     case 4
         Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
         u = [0, 0, 320, 0.012]';
-        
+
     case 5
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         pos.x = [Eta0(1) Eta0(1)];
@@ -109,26 +106,26 @@ switch model_case
         pos.z = [Eta0(3) Eta0(3)];
         pos.psi =[Eta0(6) Eta0(6)];
         time = [0 240];
-        
+
     case 6
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         pos.x = [Eta0(1) 0];
         pos.y = [Eta0(2) 0] ;
         pos.z = [Eta0(3) 200];
         pos.psi =[Eta0(6) 320*deg2rad ];
-        
+
         time = [0 20];
     case 7
-        
+
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         pos.x = [Eta0(1) 100];
         pos.y = [Eta0(2) 60] ;
         pos.z = [Eta0(3) 150];
         pos.psi =[Eta0(6) 320*deg2rad];
         time = [0 240];
-        
+
     case 8
-        
+
         Eta0 = [0; 0; 1; 0; 0; 0;]';
         pos.x = [Eta0(1) 10];
         pos.y = [Eta0(2) Eta0(2)] ;
@@ -154,9 +151,9 @@ P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
 e0 = [0 0 0 0]';
 u0 = [0, 0, 0, 0]';
 Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
-    -sin(Eta0(6)) cos(Eta0(6)) 0 0;
-    0             0         1 0;
-    0             0         0 1];
+          -sin(Eta0(6)) cos(Eta0(6)) 0 0;
+          0             0         1 0;
+          0             0         0 1];
 
 % Trajectory generation
 
@@ -168,7 +165,3 @@ path(1,:) = spline(time, pos.x, t); % Path in x direction
 path(2,:) = spline(time, pos.y, t); % Path in y direction
 path(3,:) = spline(time, pos.z, t); % Path in z direction
 path(4,:) = spline(time, pos.psi, t); % Path for the heading
-
-
-
-
