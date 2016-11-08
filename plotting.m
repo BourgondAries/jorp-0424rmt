@@ -173,41 +173,60 @@ xlabel('Time','Interpreter', 'latex');
 ylabel('Bias ','Interpreter', 'latex');
 xlim([0 xmax]);
 
-% 7th figure: Time evolution of the thrust commands from the controller
+% 7th figure: Time evolution of the thrust commands from the controller and
+% thruster set points
 figure;
 subplot(2,2,1);
+plot(t,tau.data(1,:), 'LineWidth', w);
 plot(t,u.data(1,:), 'LineWidth', w);
+plot(t,u.data(2,:), 'LineWidth', w);
+lh = legend('$\tau_c^x$', 'THS', 'THP');
+set(lh, 'Interpreter', 'latex');
 grid on;
 title('Time evolution of thrust command in surge','Interpreter', 'latex');
 xlabel('Time', 'Interpreter','latex');
-ylabel('$\tau_c^x$','Interpreter', 'latex');
+ylabel('Thrust','Interpreter', 'latex');
 xlim([0 xmax]);
 
 subplot(2,2,2);
+plot(t,tau.data(2,:), 'LineWidth', w);
+plot(t,u.data(1,:), 'LineWidth', w);
 plot(t,u.data(2,:), 'LineWidth', w);
+plot(t,u.data(3,:), 'LineWidth', w);
+lh = legend('$\tau_c^y$', 'THS', 'THP', 'THL');
+set(lh, 'Interpreter', 'latex');
 grid on;
 title('Time evolution of thrust command in sway','Interpreter', 'latex');
 xlabel('Time', 'Interpreter','latex');
-ylabel('$\tau_c^y$','Interpreter', 'latex');
+ylabel('Thrust','Interpreter', 'latex');
 xlim([0 xmax]);
 
 subplot(2,2,3);
-plot(t,u.data(3,:), 'LineWidth', w);
+plot(t,tau.data(3,:), 'LineWidth', w);
+plot(t,u.data(4,:), 'LineWidth', w);
+plot(t,u.data(5,:), 'LineWidth', w);
+lh = legend('$\tau_c^z$', 'TVS', 'TVP');
+set(lh, 'Interpreter', 'latex');
 grid on;
 title('Time evolution of thrust command in heave','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
-ylabel('$\tau_c^z$','Interpreter', 'latex');
+ylabel('Thrust','Interpreter', 'latex');
 xlim([0 xmax]);
 
 subplot(2,2,4);
-plot(t,u.data(4,:), 'LineWidth', w);
+plot(t,tau.data(4,:), 'LineWidth', w);
+plot(t,u.data(1,:), 'LineWidth', w);
+plot(t,u.data(2,:), 'LineWidth', w);
+plot(t,u.data(3,:), 'LineWidth', w);
+lh = legend('$\tau_c^{\psi}$', 'THS', 'THP', 'THL');
 grid on;
 title('Time evolution of thrust command in yaw','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
-ylabel('$\tau_c^{\psi}$','Interpreter', 'latex');
+ylabel('Thrust','Interpreter', 'latex');
 xlim([0 xmax]);
 
-% 8th figure: Time evolution of the error between observer output and
+
+% 9th figure: Time evolution of the error between observer output and
 % reference signal
 figure;
 subplot(2,2,1);
