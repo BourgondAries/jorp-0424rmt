@@ -260,3 +260,9 @@ title('Time evolution of error in yaw','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
 ylabel('$e_{\psi}$','Interpreter', 'latex');
 xlim([0 xmax]);
+
+
+switch model_case
+    case 9
+        plot_obstacle;
+end

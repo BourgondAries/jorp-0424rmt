@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 5;
+model_case = 9;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -132,7 +132,18 @@ switch model_case
         pos.z = [Eta0(3) 5];
         pos.psi =[Eta0(6) Eta0(6)];
         time = [0 240];
+        
+    case 9 %extra 3.3
+        
+        Eta0 = [0; 0; 200; 0; 0; 0;]';
+        pos.x = [Eta0(1) 30 100];
+        pos.y = [Eta0(2) 5 60] ;
+        pos.z = [Eta0(3) 145 150];
+        pos.psi =[Eta0(6) 160*deg2rad 320*deg2rad];
+        time = [0 120 240];
+        
 end
+
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
