@@ -2,11 +2,11 @@
 clc; clearvars -except compiled; close all;
 
 if exist('compiled', 'var') == 0
-    fprintf('Mexing the subsystem\n');
-    mex ./modelR2016bMAC/Subsystem_sf.c ...
-        ./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetNaN.c ...
-        ./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetInf.c
-    compiled = true;
+	fprintf('Mexing the subsystem\n');
+	mex ./modelR2016bMAC/Subsystem_sf.c ...
+		./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetNaN.c ...
+		./modelR2016bMAC/Subsystem_sfcn_rtw/rtGetInf.c
+	compiled = true;
 end
 
 addpath(genpath('./modelR2016bMAC/'));
@@ -79,71 +79,64 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % degrees in yaw during 240 seconds
 Gd = diag([200 200 300 450]);
 Gp = diag([500 100 150 10]);
-Gi = diag([100 30 30 0]);
+Gi = -diag([1 1 1 1]);
 Gpd = [Gp Gd];
 
 
 switch model_case
-    case 1
-        % Initial condition of the system
-        Eta0 = [0; 0; 2; 0; 0; 45*pi/180]';
-        % Constant thrust given by the vessel
-        u = [0, 0, 5, 0]';
-    case 2
-        Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
-        u = [300, 0, 0, 0]';
-    case 3
-        Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
-        u = [100, 0, 0, 0.2]';
-    case 4
-        Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
-        u = [0, 0, 320, 0.012]';
-
-    case 5
-        Eta0 = [0; 0; 200; 0; 0; 0;]';
-        pos.x = [Eta0(1) Eta0(1)];
-        pos.y = [Eta0(2) Eta0(2)] ;
-        pos.z = [Eta0(3) Eta0(3)];
-        pos.psi =[Eta0(6) Eta0(6)];
-        time = [0 240];
-
-    case 6
-        Eta0 = [0; 0; 200; 0; 0; 0;]';
-        pos.x = [Eta0(1) 0];
-        pos.y = [Eta0(2) 0] ;
-        pos.z = [Eta0(3) 200];
-        pos.psi =[Eta0(6) 320*deg2rad ];
-
-        time = [0 240];
-    case 7
-
-        Eta0 = [0; 0; 200; 0; 0; 0;]';
-        pos.x = [Eta0(1) 100];
-        pos.y = [Eta0(2) 60] ;
-        pos.z = [Eta0(3) 150];
-        pos.psi =[Eta0(6) 320*deg2rad];
-        time = [0 240];
-
-    case 8
-
-        Eta0 = [0; 0; 1; 0; 0; 0;]';
-        pos.x = [Eta0(1) 10];
-        pos.y = [Eta0(2) Eta0(2)] ;
-        pos.z = [Eta0(3) 5];
-        pos.psi =[Eta0(6) Eta0(6)];
-        time = [0 240];
-
-    case 9 %extra 3.3
-
-        Eta0 = [0; 0; 200; 0; 0; 0;]';
-        pos.x = [Eta0(1) 30 100];
-        pos.y = [Eta0(2) 5 60] ;
-        pos.z = [Eta0(3) 145 150];
-        pos.psi =[Eta0(6) 160*deg2rad 320*deg2rad];
-        time = [0 120 240];
-
+	case 1
+		% Initial condition of the system
+		Eta0 = [0; 0; 2; 0; 0; 45*pi/180]';
+		% Constant thrust given by the vessel
+		u = [0, 0, 5, 0]';
+	case 2
+		Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
+		u = [300, 0, 0, 0]';
+	case 3
+		Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
+		u = [100, 0, 0, 0.2]';
+	case 4
+		Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
+		u = [0, 0, 320, 0.012]';
+	case 5
+		Eta0 = [0; 0; 200; 0; 0; 0;]';
+		pos.x = [Eta0(1) Eta0(1)];
+		pos.y = [Eta0(2) Eta0(2)] ;
+		pos.z = [Eta0(3) Eta0(3)];
+		pos.psi =[Eta0(6) Eta0(6)];
+		time = [0 240];
+	case 6
+		Eta0 = [0; 0; 200; 0; 0; 0;]';
+		pos.x = [Eta0(1) 0];
+		pos.y = [Eta0(2) 0] ;
+		pos.z = [Eta0(3) 200];
+		pos.psi =[Eta0(6) 320*deg2rad ];
+		time = [0 240];
+	case 7
+		Eta0 = [0; 0; 200; 0; 0; 0;]';
+		pos.x = [Eta0(1) 100];
+		pos.y = [Eta0(2) 60] ;
+		pos.z = [Eta0(3) 150];
+		pos.psi =[Eta0(6) 320*deg2rad];
+		time = [0 240];
+	case 8
+		Eta0 = [0; 0; 1; 0; 0; 0;]';
+		pos.x = [Eta0(1) 10];
+		pos.y = [Eta0(2) Eta0(2)] ;
+		pos.z = [Eta0(3) 5];
+		pos.psi =[Eta0(6) Eta0(6)];
+		time = [0 240];
+	case 9 %extra 3.3
+		Eta0 = [0; 0; 200; 0; 0; 0;]';
+		pos.x = [Eta0(1) 30 100];
+		pos.y = [Eta0(2) 5 60] ;
+		pos.z = [Eta0(3) 145 150];
+		pos.psi =[Eta0(6) 160*deg2rad 320*deg2rad];
+		time = [0 120 240];
 end
 
+% Anti-windup precaution matrix
+Awi = 0*eye(4);
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
