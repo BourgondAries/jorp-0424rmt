@@ -77,8 +77,8 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % Controller
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
-Gd = diag([500 100 150 10]);
-Gp = diag([40 40 30 55]);
+Gp = diag([500 500 150 250]);
+Gd = diag([900 900 30 450]);
 Gi = -diag([10 10 10 1]);
 Gpd = [Gp Gd];
 
@@ -114,11 +114,11 @@ switch model_case
 		time = [0 240];
 	case 7
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
-		pos.x = [Eta0(1) 100];
-		pos.y = [Eta0(2) 60] ;
-		pos.z = [Eta0(3) 150];
-		pos.psi =[Eta0(6) 320*deg2rad];
-		time = [0 240];
+		pos.x = [Eta0(1) Eta0(1) 100 100];
+		pos.y = [Eta0(2) Eta0(2) 60 60] ;
+		pos.z = [Eta0(3) Eta0(3) 150 150];
+		pos.psi =[Eta0(6) 320*pi/180 320*pi/180 320*deg2rad];
+		time = [0 30 310 340];
 	case 8
 		Eta0 = [0; 0; 1; 0; 0; 0;]';
 		pos.x = [Eta0(1) 10];
