@@ -218,7 +218,7 @@ plot(t,tau.data(4,:), 'LineWidth', w);
 plot(t,u.data(1,:), 'LineWidth', w);
 plot(t,u.data(2,:), 'LineWidth', w);
 plot(t,u.data(3,:), 'LineWidth', w);
-lh = legend('$\tau_c^{\psi}$', 'THS', 'THP', 'THL');
+lh = legend('\tau_c^{\psi}', 'THS', 'THP', 'THL');
 grid on;
 title('Time evolution of thrust command in yaw','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
