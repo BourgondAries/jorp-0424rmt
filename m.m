@@ -137,6 +137,10 @@ end
 
 % Anti-windup precaution matrix
 Awi = 0*eye(4);
+Is  = [1 0 0 0;
+       0 1 0 0;
+       0 0 1 0;
+       0 0 0 0.3];
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
