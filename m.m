@@ -77,9 +77,9 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % Controller
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
-Gd = diag([200 200 300 450]);
-Gp = diag([500 100 150 10]);
-Gi = -diag([1 1 1 1]);
+Gd = diag([500 100 150 10]);
+Gp = diag([40 40 30 55]);
+Gi = -diag([10 10 10 1]);
 Gpd = [Gp Gd];
 
 
@@ -137,6 +137,8 @@ end
 
 % Anti-windup precaution matrix
 Awi = 0*eye(4);
+
+% Anti-windup constant (Is*tau_max and Is*tau_min)
 Is  = [1 0 0 0;
        0 1 0 0;
        0 0 1 0;
