@@ -177,6 +177,7 @@ xlim([0 xmax]);
 % thruster set points
 figure;
 subplot(2,2,1);
+t = transpose(t);
 plot(t,tau.data(1,:), 'LineWidth', w);
 plot(t,u.data(1,:), 'LineWidth', w);
 plot(t,u.data(2,:), 'LineWidth', w);
@@ -230,7 +231,7 @@ xlim([0 xmax]);
 % reference signal
 figure;
 subplot(2,2,1);
-plot(t,pos_err.data(1,:), 'LineWidth', w);
+plot(t,pos_err.data(:,1), 'LineWidth', w);
 grid on;
 title('Time evolution of error in surge','Interpreter', 'latex');
 xlabel('Time', 'Interpreter','latex');
@@ -238,7 +239,7 @@ ylabel('$e_x$','Interpreter', 'latex');
 xlim([0 xmax]);
 
 subplot(2,2,2);
-plot(t,pos_err.data(2,:), 'LineWidth', w);
+plot(t,pos_err.data(:,2), 'LineWidth', w);
 grid on;
 title('Time evolution of error in sway','Interpreter', 'latex');
 xlabel('Time', 'Interpreter','latex');
@@ -246,7 +247,7 @@ ylabel('$e_y$','Interpreter', 'latex');
 xlim([0 xmax]);
 
 subplot(2,2,3);
-plot(t,pos_err.data(3,:), 'LineWidth', w);
+plot(t,pos_err.data(:,3), 'LineWidth', w);
 grid on;
 title('Time evolution of error in heave','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
@@ -254,7 +255,7 @@ ylabel('$e_z$','Interpreter', 'latex');
 xlim([0 xmax]);
 
 subplot(2,2,4);
-plot(t,pos_err.data(4,:)*rad2deg, 'LineWidth', w);
+plot(t,pos_err.data(:,4)*rad2deg, 'LineWidth', w);
 grid on;
 title('Time evolution of error in yaw','Interpreter', 'latex');
 xlabel('Time','Interpreter', 'latex');
