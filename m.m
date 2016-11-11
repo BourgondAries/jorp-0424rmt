@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 6;
+model_case = 8;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -63,7 +63,7 @@ Ew = blkdiag(zeros(4,4), Kw);
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = diag([15,5,85,100]); % TUNING
+Tb = 1000*diag([15,5,85,100]); % TUNING
 Eb = diag([20,30,20,1]); % TUNING
 
 % EKF
