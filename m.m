@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 8;
+model_case = 6;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -77,10 +77,10 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % Controller
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
-Gp = diag([500 500 150 250]);
-Gd = diag([900 900 30 450]);
-Gi = -diag([10 10 10 1]);
-Gpd = [Gp Gd];
+Gp = diag([500 500 150 150]);
+Gd = diag([900 900 30 650]);
+Gi = -diag([1 1 1 1.2]);
+Gpd = [Gp Gd]./6;
 
 
 switch model_case
@@ -114,11 +114,11 @@ switch model_case
 		time = [0 240];
 	case 7
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
-		pos.x = [Eta0(1) Eta0(1) 100 100];
-		pos.y = [Eta0(2) Eta0(2) 60 60] ;
-		pos.z = [Eta0(3) Eta0(3) 150 150];
-		pos.psi =[Eta0(6) 320*pi/180 320*pi/180 320*deg2rad];
-		time = [0 30 310 340];
+		pos.x = [Eta0(1) 100];
+		pos.y = [Eta0(2) 60] ;
+		pos.z = [Eta0(3) 150];
+		pos.psi =[Eta0(6) 320*deg2rad];
+		time = [0 340];
 	case 8
 		Eta0 = [0; 0; 1; 0; 0; 0;]';
 		pos.x = [Eta0(1) 10];
@@ -159,7 +159,7 @@ Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
 step = 1;
 path = zeros(4, max(time)/step + 1); % Matrix containing the path vectors
 
-t = 0: step: max(time); % Adding time to the path description
+t = 0:step:max(time); % Adding time to the path description
 path(1,:) = spline(time, pos.x, t); % Path in x direction
 path(2,:) = spline(time, pos.y, t); % Path in y direction
 path(3,:) = spline(time, pos.z, t); % Path in z direction
