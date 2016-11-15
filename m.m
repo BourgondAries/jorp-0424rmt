@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 6;
+model_case = 8;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -63,8 +63,8 @@ Ew = blkdiag(zeros(4,4), Kw);
 Cw = [zeros(4), eye(4)];
 
 % Bias model
-Tb = 1000*diag([15,5,85,100]); % TUNING
-Eb = diag([20,30,20,1]); % TUNING
+Tb = diag([10,5,85,100]); % TUNING
+Eb = diag([30,30,20,1]); % TUNING
 
 % EKF
 T = 0.2;
@@ -78,9 +78,9 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
 Gp = diag([500 500 150 150]);
-Gd = diag([900 900 30 650]);
-Gi = -diag([1 1 1 1.2]);
-Gpd = [Gp Gd]./6;
+Gd = diag([900 900 30 900]);
+Gi = -diag([1 1 1 1]);
+Gpd = [Gp Gd]./8;
 
 
 switch model_case
@@ -155,12 +155,13 @@ Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
           0             0         0 1];
 
 % Trajectory generation
+if model_case > 4
+	step = 1;
+	path = zeros(4, max(time)/step + 1); % Matrix containing the path vectors
 
-step = 1;
-path = zeros(4, max(time)/step + 1); % Matrix containing the path vectors
-
-t = 0:step:max(time); % Adding time to the path description
-path(1,:) = spline(time, pos.x, t); % Path in x direction
-path(2,:) = spline(time, pos.y, t); % Path in y direction
-path(3,:) = spline(time, pos.z, t); % Path in z direction
-path(4,:) = spline(time, pos.psi, t); % Path for the heading
+	t = 0:step:max(time); % Adding time to the path description
+	path(1,:) = spline(time, pos.x, t); % Path in x direction
+	path(2,:) = spline(time, pos.y, t); % Path in y direction
+	path(3,:) = spline(time, pos.z, t); % Path in z direction
+	path(4,:) = spline(time, pos.psi, t); % Path for the heading
+end
