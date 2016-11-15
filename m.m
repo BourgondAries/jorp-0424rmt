@@ -78,9 +78,9 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
 Gp = diag([500 500 150 150]);
-Gd = diag([900 900 30 900]);
-Gi = -diag([1 1 1 1]);
-Gpd = [Gp Gd]./8;
+Gd = diag([900 900 30 800]);
+Gi = -diag([10 10 10 10]);
+Gpd = [Gp Gd];
 
 
 switch model_case
@@ -110,15 +110,15 @@ switch model_case
 		pos.x = [0];
 		pos.y = [0] ;
 		pos.z = [200];
-		pos.psi =[320*deg2rad ];
+		pos.psi =[-40*deg2rad ];
 		time = [0 240];
 	case 7
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
-		pos.x = [100];
-		pos.y = [60] ;
-		pos.z = [150];
-		pos.psi = [320*deg2rad];
-		time = [0 340];
+		pos.x = [0 100 100];
+		pos.y = [0 60 60] ;
+		pos.z = [200 150 150];
+		pos.psi = [30 30 320]*deg2rad;
+		time = [0 640];
 	case 8
 		Eta0 = [0; 0; 1; 0; 0; 0;]';
 		pos.x = [10];
@@ -126,13 +126,13 @@ switch model_case
 		pos.z = [5];
 		pos.psi = [Eta0(6)];
 		time = [0 240];
-	case 9 %extra 3.3
+	case 9 % Extra 3.3
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
 		pos.x = [30 100];
 		pos.y = [5 60] ;
 		pos.z = [145 150];
 		pos.psi = [160*deg2rad 320*deg2rad];
-		time = [0 120 240];
+		time = [0 240];
 end
 
 % Anti-windup precaution matrix
@@ -142,7 +142,7 @@ Awi = 0*eye(4);
 Is  = [1 0 0 0;
        0 1 0 0;
        0 0 1 0;
-       0 0 0 1.0];
+       0 0 0 1];
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
