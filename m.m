@@ -100,38 +100,38 @@ switch model_case
 		u = [0, 0, 320, 0.012]';
 	case 5
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
-		pos.x = [Eta0(1) Eta0(1)];
-		pos.y = [Eta0(2) Eta0(2)] ;
-		pos.z = [Eta0(3) Eta0(3)];
-		pos.psi =[Eta0(6) Eta0(6)];
+		pos.x = [Eta0(1)];
+		pos.y = [Eta0(2)] ;
+		pos.z = [Eta0(3)];
+		pos.psi = [Eta0(6)];
 		time = [0 240];
 	case 6
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
-		pos.x = [Eta0(1) 0];
-		pos.y = [Eta0(2) 0] ;
-		pos.z = [Eta0(3) 200];
-		pos.psi =[Eta0(6) 320*deg2rad ];
+		pos.x = [0];
+		pos.y = [0] ;
+		pos.z = [200];
+		pos.psi =[320*deg2rad ];
 		time = [0 240];
 	case 7
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
-		pos.x = [Eta0(1) 100];
-		pos.y = [Eta0(2) 60] ;
-		pos.z = [Eta0(3) 150];
-		pos.psi =[Eta0(6) 320*deg2rad];
+		pos.x = [100];
+		pos.y = [60] ;
+		pos.z = [150];
+		pos.psi = [320*deg2rad];
 		time = [0 340];
 	case 8
 		Eta0 = [0; 0; 1; 0; 0; 0;]';
-		pos.x = [Eta0(1) 10];
-		pos.y = [Eta0(2) Eta0(2)] ;
-		pos.z = [Eta0(3) 5];
-		pos.psi =[Eta0(6) Eta0(6)];
+		pos.x = [10];
+		pos.y = [Eta0(2)] ;
+		pos.z = [5];
+		pos.psi = [Eta0(6)];
 		time = [0 240];
 	case 9 %extra 3.3
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
-		pos.x = [Eta0(1) 30 100];
-		pos.y = [Eta0(2) 5 60] ;
-		pos.z = [Eta0(3) 145 150];
-		pos.psi =[Eta0(6) 160*deg2rad 320*deg2rad];
+		pos.x = [30 100];
+		pos.y = [5 60] ;
+		pos.z = [145 150];
+		pos.psi = [160*deg2rad 320*deg2rad];
 		time = [0 120 240];
 end
 
@@ -142,26 +142,13 @@ Awi = 0*eye(4);
 Is  = [1 0 0 0;
        0 1 0 0;
        0 0 1 0;
-       0 0 0 0.3];
+       0 0 0 1.0];
 
 % Initial values:
 x0 = [zeros(1,8),Eta0(1:3),Eta0(6),zeros(1,8)];
 P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
 e0 = [0 0 0 0]';
-u0 = [0, 0, 0, 0]';
-Transf = [cos(Eta0(6)) sin(Eta0(6)) 0 0;
-          -sin(Eta0(6)) cos(Eta0(6)) 0 0;
-          0             0         1 0;
-          0             0         0 1];
+u0 = [0 0 0 0]';
 
 % Trajectory generation
-if model_case > 4
-	step = 1;
-	path = zeros(4, max(time)/step + 1); % Matrix containing the path vectors
-
-	t = 0:step:max(time); % Adding time to the path description
-	path(1,:) = spline(time, pos.x, t); % Path in x direction
-	path(2,:) = spline(time, pos.y, t); % Path in y direction
-	path(3,:) = spline(time, pos.z, t); % Path in z direction
-	path(4,:) = spline(time, pos.psi, t); % Path for the heading
-end
+path = [pos.x(:) pos.y(:) pos.z(:) pos.psi(:)]';
