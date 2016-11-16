@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 8;
+model_case = 7;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -104,35 +104,35 @@ switch model_case
 		pos.y = [Eta0(2)] ;
 		pos.z = [Eta0(3)];
 		pos.psi = [Eta0(6)];
-		time = [0 240];
+		time = 240;
 	case 6
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
 		pos.x = [0];
 		pos.y = [0] ;
 		pos.z = [200];
 		pos.psi =[-40*deg2rad ];
-		time = [0 240];
+		time = 240;
 	case 7
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
 		pos.x = [0 100 100];
 		pos.y = [0 60 60] ;
 		pos.z = [200 150 150];
 		pos.psi = [30 30 320]*deg2rad;
-		time = [0 640];
+		time = 640;
 	case 8
 		Eta0 = [0; 0; 1; 0; 0; 0;]';
 		pos.x = [10];
 		pos.y = [Eta0(2)] ;
 		pos.z = [5];
 		pos.psi = [Eta0(6)];
-		time = [0 240];
+		time = 240;
 	case 9 % Extra 3.3
 		Eta0 = [0; 0; 200; 0; 0; 0;]';
 		pos.x = [30 100];
 		pos.y = [5 60] ;
 		pos.z = [145 150];
 		pos.psi = [160*deg2rad 320*deg2rad];
-		time = [0 240];
+		time = 240;
 end
 
 % Anti-windup precaution matrix
