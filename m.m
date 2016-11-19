@@ -131,7 +131,7 @@ switch model_case
         WP = [Eta0(1) 30 100; Eta0(2) 5 60; Eta0(3) 145 150; Eta0(6) 160*deg2rad 320*deg2rad]'; %Waypoints in x,y,z,psi
         CS = cat(1,0,cumsum(sqrt(sum(diff(WP,[],1).^2,2)))); %%creating a cubic spline between the WP
         dd = interp1(CS, WP, unique([CS(:)' linspace(0,CS(end),100)]),'pchip');%%creating a cubic spline between the WP
-        time = 1000;
+        time = 400;
         %% defining the setpoints for the ROVs trajectory
         pos.x =  [dd(1,1) dd(11,1) dd(22,1) dd(33,1) dd(42,1) dd(53,1) dd(64,1) dd(75,1) dd(86,1)   dd(97,1) dd(101,1)];
         pos.y =  [dd(1,2) dd(11,2) dd(22,2) dd(33,2) dd(42,2) dd(53,2) dd(64,2) dd(75,2) dd(86,2)   dd(97,2) dd(101,2)];

@@ -7,8 +7,6 @@ set(gca, 'zdir', 'reverse');
 grid
 hold on
 
-
-
 p1 = [25 15 165];
 p2 = [25 45 165];
 p3 = [25 45 185];
@@ -49,7 +47,28 @@ w = [p3(2) p7(2) p8(2) p4(2)];
 z = [p3(3) p7(3) p8(3) p4(3)];
 fill3(x,w,z, 1);
 
-a = plot3(y.data(1,:), y.data(2,:), y.data(3,:), 'r') ; %Plotting Minervas trajec
+
+
+a = plot3(y.data(1,:), y.data(2,:), y.data(3,:), 'r') ; %Plotting Minervas trajecory
 b = plot3(path(1,:), path(2,:), path(3,:), 'b'); % Plotting the desired path
 plot3(WP(:,1), WP(:,2), WP(:,3), 'x'); %Marking the waypoints 
-legend([a b],{'Real trajectory','Desiered Path'}); 
+
+%% Plotting minerva at several time steps 
+tsamp = 0.2; 
+dec = 500; 
+L = [1.4400 0.8200 0.8000]*10; 
+for now = 1:dec:length(y.data(1,:))
+    origin = [y.data(1,now) y.data(2,now) y.data(3,now)]; 
+    x=([0 1 1 0 0 0;1 1 0 0 1 1;1 1 0 0 1 1;0 1 1 0 0 0]-0.5)*L(1) + origin(1);
+ned=([0 0 1 1 0 0;0 1 1 0 0 0;0 1 1 0 1 1;0 0 1 1 1 1]-0.5)*L(2) + origin(2);
+z=([0 0 0 0 0 1;0 0 0 0 0 1;1 1 1 1 0 1;1 1 1 1 0 1]-0.5)*L(3) + origin(3);
+    boat =[x; ned; z]; 
+    
+  for i=1:6
+    h=patch(boat(1:4,i),boat(5:8,i),boat(9:12,i),'y');
+    set(h,'edgecolor','k')
+end
+       now=now+tsamp*dec;
+end
+
+legend([a b h],{'Real trajectory','Desiered Path', 'Minerva'}); 
