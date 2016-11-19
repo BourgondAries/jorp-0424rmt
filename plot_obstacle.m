@@ -7,7 +7,7 @@ set(gca, 'zdir', 'reverse');
 grid
 hold on
 
-a = plot3(y.data(1,:), y.data(2,:), y.data(3,:), 'r') ; 
+
 
 p1 = [25 15 165];
 p2 = [25 45 165];
@@ -49,6 +49,7 @@ w = [p3(2) p7(2) p8(2) p4(2)];
 z = [p3(3) p7(3) p8(3) p4(3)];
 fill3(x,w,z, 1);
 
-b = plot3(path(1,:), path(2,:), path(3,:), 'b'); 
-plot3(pos.x, pos.y, pos.z, 'x');
+a = plot3(y.data(1,:), y.data(2,:), y.data(3,:), 'r') ; %Plotting Minervas trajec
+b = plot3(path(1,:), path(2,:), path(3,:), 'b'); % Plotting the desired path
+plot3(WP(:,1), WP(:,2), WP(:,3), 'x'); %Marking the waypoints 
 legend([a b],{'Real trajectory','Desiered Path'}); 
