@@ -1,3 +1,6 @@
+% Script for plotting Minervas 3D trajectory in the NED-frame for part 2
+% scenario 3 and 4
+
 figure;
 xlabel('North'); ylabel('East'); zlabel('Down');
 

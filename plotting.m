@@ -1,9 +1,13 @@
+%% Script for doing all the necessary plotting
+
 % Output from Mierva: y
 % Output from Observer: x_hat
+% Output from Controller: tau
+% Output from Thrust Allocation: u
 
 close all;
 
-% Plotting variables for sizes and conversions
+% Variables for sizes, dimensions and conversions
 width = 1;
 t = x_hat.time;
 xmax = (length(x_hat.time)-1)*T;
@@ -15,8 +19,23 @@ titlesize = 36;
 legendsize = 12;
 figsize1 = [100,100,1800,600];
 figsize2 = [100,100,800,600];
+ax1 = [-50 50 -50 50];
 
-% 1st figure: ROV trajectory in the north-east plane. North on y-axis, east
+switch model_case
+    case 5
+        ax1 = [-5 5 -5 5];
+    case 6
+        ax1 = [-5 5 -5 5];
+    case 7
+        ax1 = [-20 70 -20 120];
+        plot_trajectory;
+    case 8
+        plot_trajectory;
+    case 9
+        plot_obstacle;
+end
+
+%% 1st figure: ROV trajectory in the north-east plane. North on y-axis, east
 % on x-axis
 fh = figure;
 set(fh, 'Position', figsize2);
@@ -31,12 +50,11 @@ xt = get(gca, 'XTick');
 set(gca, 'FontSize', ticksize)
 yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
-axis([-5 5 -5 5])
+axis(ax1)
 
 %print('../figures/Part 2/case2_ne','-dpng')
 
-% 2nd figure: Time evolution of n, e, d and psi and nhat, ehat, dhat and
-% psihat, using subplot and legends
+%% 2nd figure: Time evolution of n, e, d and psi and nhat, ehat, dhat and psihat
 fh = figure;
 set(fh, 'Position', figsize1);
 
@@ -108,9 +126,9 @@ yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
 
-%print('../figures/Part 2/case4_pos','-dpng')
+%print('../figures/Part 2/case5_pos','-dpng')
 
-% 3rd figure: Time evolution of the estimated velocities uhat, vhat, what
+%% 3rd figure: Time evolution of the estimated velocities uhat, vhat, what
 % and rhat, using subplot and legends
 fh = figure;
 set(fh, 'Position', figsize1);
@@ -172,43 +190,42 @@ yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
 
-%print('../figures/Part 2/case4_vel','-dpng')
+%print('../figures/Part 2/case5_vel','-dpng')
 
-% % 4th figure: Absolute error of positions
-% fh = figure;
-% set(fh, 'Position', fs);
-% plot(t,abs(x_hat.data(9,:)-y.data(1,:)));
-% hold on;
-% plot(t,abs(x_hat.data(10,:)-y.data(2,:)));
-% plot(t,abs(x_hat.data(11,:)-y.data(3,:)));
-% lh = legend('$\tilde{n}$','$\tilde{e}$','$\tilde{d}$');
-% set(lh, 'Interpreter', 'latex', 'FontSize', ls);
-% title('Absolute Error of positions', 'Interpreter', 'latex', 'FontSize', ts);
-% xlabel('Time [s]', 'FontSize', xls);
-% ylabel('Absolute Error [m]', 'FontSize', yls);
-% xt = get(gca, 'XTick');
-% set(gca, 'FontSize', tls)
-% yt = get(gca, 'YTick');
-% set(gca, 'FontSize', tls)
-% xlim([0 xmax]);
-%
-% % 5th figure: Absolute error of heading
-% fh = figure;
-% set(fh, 'Position', fs);
-% plot(t,abs(x_hat.data(12,:)-y.data(4,:))*rad2deg);
-% lh = legend('$\tilde{\psi}$');
-% set(lh, 'Interpreter', 'latex', 'FontSize', ls);
-% title('Absolute Error of heading', 'Interpreter', 'latex', 'FontSize', ts);
-% xlabel('Time [s]', 'FontSize', xls);
-% ylabel('Absolute Error [deg]', 'Interpreter', 'latex', 'FontSize', yls);
-% xt = get(gca, 'XTick');
-% set(gca, 'FontSize', tls)
-% yt = get(gca, 'YTick');
-% set(gca, 'FontSize', tls)
-% xlim([0 xmax]);
+%% 4th figure: Absolute error of positions
+fh = figure;
+set(fh, 'Position', figsize1);
+plot(t,abs(x_hat.data(9,:)-y.data(1,:)));
+hold on;
+plot(t,abs(x_hat.data(10,:)-y.data(2,:)));
+plot(t,abs(x_hat.data(11,:)-y.data(3,:)));
+lh = legend('$\tilde{n}$','$\tilde{e}$','$\tilde{d}$');
+set(lh, 'Interpreter', 'latex', 'FontSize', legendsize);
+title('Absolute Error of positions', 'Interpreter', 'latex', 'FontSize', titlesize);
+xlabel('Time [s]', 'FontSize', xlabelsize);
+ylabel('Absolute Error [m]', 'FontSize', ylabelsize);
+xt = get(gca, 'XTick');
+set(gca, 'FontSize', ticksize)
+yt = get(gca, 'YTick');
+set(gca, 'FontSize', ticksize)
+xlim([0 xmax]);
 
-% 6th figure: Time evolution of the estimated biases b_1, b_2, b_3, and b_6.
-% Using subplot and legends
+%% 5th figure: Absolute error of heading
+fh = figure;
+set(fh, 'Position', figsize1);
+plot(t,abs(x_hat.data(12,:)-y.data(4,:))*rad2deg);
+lh = legend('$\tilde{\psi}$');
+set(lh, 'Interpreter', 'latex', 'FontSize', legendsize);
+title('Absolute Error of heading', 'Interpreter', 'latex', 'FontSize', titlesize);
+xlabel('Time [s]', 'FontSize', xlabelsize);
+ylabel('Absolute Error [deg]', 'Interpreter', 'latex', 'FontSize', ylabelsize);
+xt = get(gca, 'XTick');
+set(gca, 'FontSize', ticksize)
+yt = get(gca, 'YTick');
+set(gca, 'FontSize', ticksize)
+xlim([0 xmax]);
+
+%% 6th figure: Time evolution of the estimated biases b1, b2, b3, and b6.
 fh = figure;
 set(fh, 'Position', figsize1);
 subplot(2,2,1);
@@ -269,8 +286,7 @@ xlim([0 xmax]);
 
 %print('../figures/Part 2/case4_bias','-dpng')
 
-% 7th figure: Time evolution of the thrust commands from the controller and
-% thruster set points
+%% 7th figure: Time evolution of the thrust commands from the controller and thruster set points
 fh = figure;
 set(fh, 'Position', figsize1);
 subplot(2,2,1);
@@ -346,8 +362,7 @@ xlim([0 xmax]);
 
 %print('../figures/Part 2/case4_thrust','-dpng')
 
-% 8th figure: Time evolution of the error between observer output and
-% reference signal
+%% 8th figure: Time evolution of the error between observer output and reference signal
 fh = figure;
 set(fh, 'Position', figsize1);
 subplot(2,2,1);
@@ -406,18 +421,9 @@ yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
 
-%print('../figures/Part 2/case4_error','-dpng')
+%print('../figures/Part 2/case5_error','-dpng')
 
-switch model_case
-    case 7
-        plot_trajectory;
-    case 8
-        plot_trajectory;
-    case 9
-        plot_obstacle;
-end
-
-% Mean errors between xhat and xref
+%% Mean absolute errors between xhat and xref
 mean_errx = mean(abs(pos_err.data(:,1)));
 mean_erry = mean(abs(pos_err.data(:,2)));
 mean_errz = mean(abs(pos_err.data(:,3)));

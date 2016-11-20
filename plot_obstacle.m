@@ -1,3 +1,6 @@
+% Script for plotting the obstacle in the extra challenge
+% Also plots the desired trajectory around the obstacle and Minervas path
+
 figure
 xlabel('North'); ylabel('East'); zlabel('Down');
 axis([-50 150 -50 110 0 250]);

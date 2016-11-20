@@ -1,4 +1,4 @@
-% Main script
+%% Main script
 clc; clearvars -except compiled; close all;
 
 if exist('compiled', 'var') == 0
@@ -13,6 +13,8 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
+% (NOW ONLY CASE 5, 6, 7, 8 AND 9 WORKS)
+% The other ones are old, for project part 1
 model_case = 9;
 
 % Various states of simulation
@@ -25,7 +27,7 @@ WavesEnabled      = 1;
 deg2rad = pi/180;
 rad2deg = 180/pi;
 
-% Vessel model
+%% Vessel model
 Ma = [290 0   0   0;
     0   300 0   0;
     0   0   330 0;
@@ -45,7 +47,7 @@ D = [234 0   0   0;
 
 g = [0,0,5,0];
 
-%Thrust allocation matrix
+%% Thrust allocation
 N = [0.5077    0.4994         0   -3.0084;
     0.5077   -0.4994         0    3.0084;
     0         0.8266         0    1.0448;
@@ -54,6 +56,7 @@ N = [0.5077    0.4994         0   -3.0084;
 tau_max = [480,  220,  390,  36]';
 tau_min = [-220, -220, -180, -36]';
 
+%% Observer
 % Wave model
 Omega = diag([0.7,0.7,0.7,3]); % TUNING
 Lambda = diag([0.06,0.06,0.02,0.1]); % TUNING
@@ -74,7 +77,7 @@ H = [Cw, eye(4), zeros(4), zeros(4)];
 Q = blkdiag(zeros(4), diag([10,10,10,10]), 0.1*eye(4), diag([0.1,0.1,0.1,0.1]), 0.1*eye(4)); % TUNING
 R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 
-% Controller
+%% Controller
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
 Gp = diag([500 500 25 150]);
@@ -84,37 +87,37 @@ Gpd = [Gp Gd];
 
 
 switch model_case
-    case 1
+    case 1 % Part 1, Scenario 1
         % Initial condition of the system
         Eta0 = [0; 0; 2; 0; 0; 45*pi/180]';
         % Constant thrust given by the vessel
         u = [0, 0, 5, 0]';
-    case 2
+    case 2 % Part 1, Scenario 2
         Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
         u = [300, 0, 0, 0]';
-    case 3
+    case 3 % Part 1, Scenario 3
         Eta0 = [0; 0; 300; 0; 0; 45*pi/180]';
         u = [100, 0, 0, 0.2]';
-    case 4
+    case 4 % Part 1, Scenario 4
         Eta0 = [0; 0; 1; 0; 0; 45*pi/180]';
         u = [0, 0, 320, 0.012]';
-    case 5
+    case 5 % Part 2, Scenario 1
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6)];
         time = 240;
-    case 6
+    case 6 % Part 2, Scenario 2
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6);Eta0(1) Eta0(2) Eta0(3) -40*deg2rad];
         time = 240;
-    case 7
+    case 7 % Part 2, Scenario 3
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 100 60 150 320*deg2rad];
         time = 400;
-    case 8
+    case 8 % Part 2, Scenario 4
         Eta0 = [0; 0; 1; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 10  Eta0(2) 5 Eta0(6)];
         time = 30;
-    case 9 % Extra 3.3
+    case 9 % Part 2, Extra 3.3
         Eta0 = [0; 0; 200; 0; 0; 0;]'; %initial position
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 30 60 145 160*deg2rad; 100 60 150 320*deg2rad];
         time = 400;
