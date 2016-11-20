@@ -185,7 +185,7 @@ xlim([0 xmax]);
 % yt = get(gca, 'YTick');
 % set(gca, 'FontSize', tls)
 % xlim([0 xmax]);
-% 
+%
 % % 5th figure: Absolute error of heading
 % fh = figure;
 % set(fh, 'Position', fs);
@@ -305,7 +305,7 @@ subplot(2,2,3);
 plot(t,tau.data(3,:), 'LineWidth', width);
 hold on;
 plot(t,u.data(4,:), 'LineWidth', width);
-plot(t,u.data(5,:), 'LineWidth', width);
+plot(t,u.data(5,:), '--');
 lh = legend('$\tau_z$', 'TVS', 'TVP');
 set(lh, 'Interpreter', 'latex', 'FontSize', legendsize);
 grid on;
