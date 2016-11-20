@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 6;
+model_case = 8;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -100,30 +100,25 @@ switch model_case
         u = [0, 0, 320, 0.012]';
     case 5
         Eta0 = [0; 0; 200; 0; 0; 0;]';
-        pos.x = [Eta0(1)];
-        pos.y = [Eta0(2)] ;
-        pos.z = [Eta0(3)];
-        pos.psi = [Eta0(6)];
+        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6)];
+        
         time = 240;
     case 6
         Eta0 = [0; 0; 200; 0; 0; 0;]';
-        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 0 0 200 -40*deg2rad]; 
-%         pos.x = [0];
-%         pos.y = [0] ;
-%         pos.z = [200];
-%         pos.psi =[-40*deg2rad ];
+        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6);Eta0(1) Eta0(2) Eta0(3) -40*deg2rad];
+        
         time = 240;
     case 7
         Eta0 = [0; 0; 200; 0; 0; 0;]';
-        pos.x = [0 100 100];
-        pos.y = [0 60 60] ;
-        pos.z = [200 150 150];
-        pos.psi = [30 30 320]*deg2rad;
-        time = 640;
+        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 100 60 150 320*deg2rad];
+        time = 400;
     case 8
         Eta0 = [0; 0; 1; 0; 0; 0;]';
+        
+        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 1   Eta0(2) 5 Eta0(6)];
         pos.x = [10];
         pos.y = [Eta0(2)] ;
+        
         pos.z = [5];
         pos.psi = [Eta0(6)];
         time = 240;
@@ -141,8 +136,8 @@ switch model_case
         
 end
 
-% Path generation for the guidance system 
-setpoints = generatePath(WP); 
+% Path generation for the guidance system
+setpoints = generatePath(WP);
 
 
 % Anti-windup precaution matrix
