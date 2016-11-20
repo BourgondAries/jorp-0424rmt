@@ -1,7 +1,7 @@
 figure
 xlabel('North'); ylabel('East'); zlabel('Down');
 axis([-50 150 -50 110 0 250]);
-title('Collision avoidance','Interpreter', 'latex');
+title('Collision avoidance');
 
 set(gca, 'zdir', 'reverse'); 
 grid
@@ -50,7 +50,7 @@ fill3(x,w,z, 1);
 
 
 a = plot3(y.data(1,:), y.data(2,:), y.data(3,:), 'r') ; %Plotting Minervas trajecory
-b = plot3(path(1,:), path(2,:), path(3,:), 'b'); % Plotting the desired path
+b = plot3(setpoints(:,1), setpoints(:,2), setpoints(:,3), 'b'); % Plotting the desired path
 plot3(WP(:,1), WP(:,2), WP(:,3), 'x'); %Marking the waypoints 
 
 %% Plotting minerva at several time steps 

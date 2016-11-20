@@ -399,6 +399,10 @@ xlim([0 xmax]);
 
 
 switch model_case
+    case 7
+        plot_trajectory;
+    case 8
+        plot_trajectory;
     case 9
         plot_obstacle;
 end
