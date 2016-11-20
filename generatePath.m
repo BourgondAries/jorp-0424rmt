@@ -10,7 +10,7 @@ if(size(WP, 1)) < 2 %stationkeeping
 elseif size(WP, 1) == 2 %Going from A to B and/or rotating
     
     if(WP(1,1) ~= WP(2,1) | WP(1,2) ~= WP(2,2) | WP(1,3) ~= WP(2,3) ) % if translatory motion
-        points = 2; %minimum 2
+        points =  ceil(norm(WP(1,1:3) - WP (2,1:3))/9); %minimum 2
         
         alpha = atan2(WP(2, 2), WP(2, 1));  %angle to final point
         north = linspace(WP(1, 1), WP(2,1), points); %crating points on the straight line
@@ -33,7 +33,7 @@ elseif size(WP, 1) == 2 %Going from A to B and/or rotating
     end
     
 else % three or more waypoints
-    points = 10; % must be tuned
+    points = ceil(norm(WP(1,1:3) - WP (2,1:3))/9);
     
     CS = cat(1,0,cumsum(sqrt(sum(diff(WP(:,1:3),[],1).^2,2)))); %%creating a cubic spline between the WP
     dd = interp1(CS, WP(:,1:3), unique([CS(:)' linspace(0,CS(end),100)]),'pchip');
