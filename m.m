@@ -15,7 +15,7 @@ modelR2016bMAC;
 % Example case, decides initial condition and thrust
 % (NOW ONLY CASE 5, 6, 7, 8 AND 9 WORKS)
 % The other ones are old, for project part 1
-model_case = 9;
+model_case = 5;
 
 % Various states of simulation
 CurrentEnabled    = 1;
