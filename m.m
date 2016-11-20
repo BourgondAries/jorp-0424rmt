@@ -77,9 +77,9 @@ R = diag([0.014, 0.0141, 0.0148, 7.5122e-5]); % TUNING
 % Controller
 % Tuned for less than 0.2 m error in surge and sway, 0.1 m in heave and 2
 % degrees in yaw during 240 seconds
-Gp = diag([500 500 150 150]);
-Gd = diag([900 900 30 800]);
-Gi = -diag([10 10 10 10]);
+Gp = diag([500 500 25 150]);
+Gd = diag([900 900 500 800]);
+Gi = -diag([10 10 5 10]);
 Gpd = [Gp Gd];
 
 
@@ -101,12 +101,12 @@ switch model_case
     case 5
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6)];
-        
+
         time = 240;
     case 6
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6);Eta0(1) Eta0(2) Eta0(3) -40*deg2rad];
-        
+
         time = 240;
     case 7
         Eta0 = [0; 0; 200; 0; 0; 0;]';
@@ -114,11 +114,11 @@ switch model_case
         time = 400;
     case 8
         Eta0 = [0; 0; 1; 0; 0; 0;]';
-        
+
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 1   Eta0(2) 5 Eta0(6)];
         pos.x = [10];
         pos.y = [Eta0(2)] ;
-        
+
         pos.z = [5];
         pos.psi = [Eta0(6)];
         time = 240;
@@ -133,7 +133,7 @@ switch model_case
         pos.y =  [dd(1,2) dd(11,2) dd(22,2) dd(33,2) dd(42,2) dd(53,2) dd(64,2) dd(75,2) dd(86,2)   dd(97,2) dd(101,2)];
         pos.z =  [dd(1,3) dd(11,3) dd(22,3) dd(33,3) dd(42,3) dd(53,3) dd(64,3) dd(75,3) dd(86,3)   dd(97,3) dd(101,3)];
         pos.psi= [dd(1,4) dd(3,4)  dd(3,4)  dd(3,4)  dd(3,4) dd(10,4)  dd(10,4) dd(10,4) dd(10,4) dd(10,4) dd(101,4)];
-        
+
 end
 
 % Path generation for the guidance system
