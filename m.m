@@ -114,14 +114,8 @@ switch model_case
         time = 400;
     case 8
         Eta0 = [0; 0; 1; 0; 0; 0;]';
-        
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 10  Eta0(2) 5 Eta0(6)];
-        pos.x = [10];
-        pos.y = [Eta0(2)] ;
-        
-        pos.z = [5];
-        pos.psi = [Eta0(6)];
-        time = 30;
+         time = 30;
     case 9 % Extra 3.3
         Eta0 = [0; 0; 200; 0; 0; 0;]'; %initial position
         WP = [Eta0(1) 30 100; Eta0(2) 5 60; Eta0(3) 145 150; Eta0(6) 160*deg2rad 320*deg2rad]'; %Waypoints in x,y,z,psi
