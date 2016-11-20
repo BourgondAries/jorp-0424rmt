@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 8;
+model_case = 9;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -118,16 +118,9 @@ switch model_case
          time = 30;
     case 9 % Extra 3.3
         Eta0 = [0; 0; 200; 0; 0; 0;]'; %initial position
-        WP = [Eta0(1) 30 100; Eta0(2) 5 60; Eta0(3) 145 150; Eta0(6) 160*deg2rad 320*deg2rad]'; %Waypoints in x,y,z,psi
-        CS = cat(1,0,cumsum(sqrt(sum(diff(WP,[],1).^2,2)))); %%creating a cubic spline between the WP
-        dd = interp1(CS, WP, unique([CS(:)' linspace(0,CS(end),100)]),'pchip');%%creating a cubic spline between the WP
+        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 30 60 145 160*deg2rad; 100 60 150 320*deg2rad]; 
         time = 400;
-        %% defining the setpoints for the ROVs trajectory
-        pos.x =  [dd(1,1) dd(11,1) dd(22,1) dd(33,1) dd(42,1) dd(53,1) dd(64,1) dd(75,1) dd(86,1)   dd(97,1) dd(101,1)];
-        pos.y =  [dd(1,2) dd(11,2) dd(22,2) dd(33,2) dd(42,2) dd(53,2) dd(64,2) dd(75,2) dd(86,2)   dd(97,2) dd(101,2)];
-        pos.z =  [dd(1,3) dd(11,3) dd(22,3) dd(33,3) dd(42,3) dd(53,3) dd(64,3) dd(75,3) dd(86,3)   dd(97,3) dd(101,3)];
-        pos.psi= [dd(1,4) dd(3,4)  dd(3,4)  dd(3,4)  dd(3,4) dd(10,4)  dd(10,4) dd(10,4) dd(10,4) dd(10,4) dd(101,4)];
-        
+    
 end
 
 % Path generation for the guidance system
