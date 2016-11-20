@@ -31,7 +31,9 @@ xt = get(gca, 'XTick');
 set(gca, 'FontSize', ticksize)
 yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
-axis([-50 50 -50 50])
+axis([-5 5 -5 5])
+
+%print('../figures/Part 2/case2_ne','-dpng')
 
 % 2nd figure: Time evolution of n, e, d and psi and nhat, ehat, dhat and
 % psihat, using subplot and legends
@@ -106,6 +108,8 @@ yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
 
+%print('../figures/Part 2/case4_pos','-dpng')
+
 % 3rd figure: Time evolution of the estimated velocities uhat, vhat, what
 % and rhat, using subplot and legends
 fh = figure;
@@ -167,6 +171,8 @@ set(gca, 'FontSize', ticksize)
 yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
+
+%print('../figures/Part 2/case4_vel','-dpng')
 
 % % 4th figure: Absolute error of positions
 % fh = figure;
@@ -261,6 +267,8 @@ yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
 
+%print('../figures/Part 2/case4_bias','-dpng')
+
 % 7th figure: Time evolution of the thrust commands from the controller and
 % thruster set points
 fh = figure;
@@ -336,6 +344,7 @@ yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
 
+%print('../figures/Part 2/case4_thrust','-dpng')
 
 % 8th figure: Time evolution of the error between observer output and
 % reference signal
@@ -397,6 +406,7 @@ yt = get(gca, 'YTick');
 set(gca, 'FontSize', ticksize)
 xlim([0 xmax]);
 
+%print('../figures/Part 2/case4_error','-dpng')
 
 switch model_case
     case 7
