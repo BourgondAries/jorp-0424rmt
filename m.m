@@ -13,7 +13,7 @@ addpath(genpath('./modelR2016bMAC/'));
 modelR2016bMAC;
 
 % Example case, decides initial condition and thrust
-model_case = 9;
+model_case = 6;
 
 % Various states of simulation
 CurrentEnabled    = 1;
@@ -107,10 +107,11 @@ switch model_case
         time = 240;
     case 6
         Eta0 = [0; 0; 200; 0; 0; 0;]';
-        pos.x = [0];
-        pos.y = [0] ;
-        pos.z = [200];
-        pos.psi =[-40*deg2rad ];
+        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 0 0 200 -40*deg2rad]; 
+%         pos.x = [0];
+%         pos.y = [0] ;
+%         pos.z = [200];
+%         pos.psi =[-40*deg2rad ];
         time = 240;
     case 7
         Eta0 = [0; 0; 200; 0; 0; 0;]';
@@ -140,6 +141,10 @@ switch model_case
         
 end
 
+% Path generation for the guidance system 
+setpoints = generatePath(WP); 
+
+
 % Anti-windup precaution matrix
 Awi = 0*eye(4);
 
@@ -155,5 +160,5 @@ P0 = blkdiag(eye(8), eye(4)*10, eye(4), eye(4));
 e0 = [0 0 0 0]';
 u0 = [0 0 0 0]';
 
-% Trajectory generation
-path = [pos.x(:) pos.y(:) pos.z(:) pos.psi(:)]';
+
+
