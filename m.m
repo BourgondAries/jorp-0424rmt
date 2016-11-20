@@ -101,12 +101,10 @@ switch model_case
     case 5
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6)];
-
         time = 240;
     case 6
         Eta0 = [0; 0; 200; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6);Eta0(1) Eta0(2) Eta0(3) -40*deg2rad];
-
         time = 240;
     case 7
         Eta0 = [0; 0; 200; 0; 0; 0;]';
@@ -115,21 +113,12 @@ switch model_case
     case 8
         Eta0 = [0; 0; 1; 0; 0; 0;]';
         WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 10  Eta0(2) 5 Eta0(6)];
-         time = 30;
+        time = 30;
     case 9 % Extra 3.3
         Eta0 = [0; 0; 200; 0; 0; 0;]'; %initial position
-        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 30 60 145 160*deg2rad; 100 60 150 320*deg2rad]; 
+        WP = [Eta0(1) Eta0(2) Eta0(3) Eta0(6); 30 60 145 160*deg2rad; 100 60 150 320*deg2rad];
         time = 400;
-<<<<<<< HEAD
-    
-=======
-        %% defining the setpoints for the ROVs trajectory
-        pos.x =  [dd(1,1) dd(11,1) dd(22,1) dd(33,1) dd(42,1) dd(53,1) dd(64,1) dd(75,1) dd(86,1)   dd(97,1) dd(101,1)];
-        pos.y =  [dd(1,2) dd(11,2) dd(22,2) dd(33,2) dd(42,2) dd(53,2) dd(64,2) dd(75,2) dd(86,2)   dd(97,2) dd(101,2)];
-        pos.z =  [dd(1,3) dd(11,3) dd(22,3) dd(33,3) dd(42,3) dd(53,3) dd(64,3) dd(75,3) dd(86,3)   dd(97,3) dd(101,3)];
-        pos.psi= [dd(1,4) dd(3,4)  dd(3,4)  dd(3,4)  dd(3,4) dd(10,4)  dd(10,4) dd(10,4) dd(10,4) dd(10,4) dd(101,4)];
-
->>>>>>> 2aaee251201d1b05dcca99f2dc20732dcb1411cc
+        
 end
 
 % Path generation for the guidance system
